@@ -12,10 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/app_name" />
@@ -23,7 +22,7 @@
     <Button
         android:id="@+id/button12"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="28dp"
         android:layout_marginEnd="50dp"
@@ -33,6 +32,7 @@
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
+        app:fontFamily="casual"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,7 +41,7 @@
     <Button
         android:id="@+id/button"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="50dp"
@@ -51,6 +51,7 @@
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
+        app:fontFamily="casual"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +60,7 @@
     <Button
         android:id="@+id/button1"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="50dp"
@@ -69,10 +70,128 @@
         android:textColor="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
+        app:fontFamily="casual"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:weightSum="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button12">
 
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:background="@color/white"
+
+
+            />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="Avatar"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:fontFamily="casual" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_gravity="center"
+            android:layout_weight="2"
+            android:background="@color/white"
+
+            />
+    </LinearLayout>
+
+
+    <!--<com.nex3z.togglebuttongroup.SingleSelectToggleGroup-->
+    <!--android:id="@+id/group_choices"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="8dp"-->
+    <!--app:layout_constraintEnd_toEndOf="@+id/linearLayout"-->
+    <!--app:layout_constraintStart_toStartOf="@+id/linearLayout"-->
+    <!--app:layout_constraintTop_toBottomOf="@+id/linearLayout"-->
+    <!--app:tbgCheckedButton="@+id/choice_a">-->
+
+    <!--<com.nex3z.togglebuttongroup.button.CircularToggle-->
+    <!--android:id="@+id/choice_a"-->
+    <!--android:layout_width="70dp"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:background="@drawable/dog_yellow" />-->
+
+    <!--<com.nex3z.togglebuttongroup.button.CircularToggle-->
+    <!--android:id="@+id/choice_b"-->
+    <!--android:layout_width="70dp"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:layout_marginStart="35dp"-->
+    <!--android:layout_marginEnd="35dp"-->
+    <!--android:background="@drawable/cat" />-->
+
+    <!--<com.nex3z.togglebuttongroup.button.CircularToggle-->
+    <!--android:id="@+id/choice_c"-->
+    <!--android:layout_width="70dp"-->
+    <!--android:layout_height="60dp"-->
+    <!--android:background="@drawable/panda" />-->
+
+    <!--&lt;!&ndash;...&ndash;&gt;-->
+
+    <!--</com.nex3z.togglebuttongroup.SingleSelectToggleGroup>-->
+    <LinearLayout
+        android:id="@+id/btn_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <Button
+            android:background="@drawable/dog_yellow"
+            android:id="@+id/btn_dog"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btn_cat"
+            android:background="@drawable/cat"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginEnd="35dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+
+        <Button
+            android:id="@+id/btn_panda"
+            android:background="@drawable/panda"
+            android:layout_width="70dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:gravity="center" />
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
