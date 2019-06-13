@@ -158,7 +158,7 @@
 
             <Button
                 android:id="@+id/btn_cat"
-                android:background="@drawable/cat"
+                android:background="@drawable/butterfly"
                 android:layout_width="70dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="35dp"
