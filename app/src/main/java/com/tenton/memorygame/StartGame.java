@@ -48,7 +48,7 @@ public class StartGame extends Fragment {
                 .setMessage("Choose level: ")
                 .setTextColor(getResources().getColor(R.color.whitee))
                 .setTextGravity(1).setDialogBackgroundColor(getResources().getColor(R.color.dark_pink))
-                .setCornerRadius(3f);
+                .setCornerRadius(25f);
 
         builder.addButton("EASY", getResources().getColor(R.color.yellow), getResources().getColor(R.color.dark_blue),
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
