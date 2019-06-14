@@ -1,5 +1,6 @@
 package com.tenton.memorygame;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +14,11 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     @NonNull
     @Override
     public SinglePlayerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view;
+        LayoutInflater layoutInflater=LayoutInflater.from(parent.getContext());
+        view=layoutInflater.inflate(R.layout.item_view,parent,false);
+
+        return new MyViewHolder(view);
     }
 
 
