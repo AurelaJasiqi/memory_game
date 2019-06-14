@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,9 @@ public class StartGame extends Fragment {
 
     private StartGameViewModel mViewModel;
     private StartGameFragmentBinding binding;
+  //  private Action
+   // private Star action;
+
 
     //CFAlertDialogBuilder
     private CFAlertDialog.Builder builder;
@@ -54,7 +58,11 @@ public class StartGame extends Fragment {
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(),"Easy",Toast.LENGTH_SHORT).show();
+//                        val action = ListOfShopsFragmentDirections.actionListOfShopsToHome()
+//                        findNavController().navigate(action)
+                        Navigation.findNavController(getView()).navigate(R.id.single_player_fragment);
+
+
 
                     }
                 });

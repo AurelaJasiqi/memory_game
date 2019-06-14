@@ -9,5 +9,15 @@
     android:label="Fragment_launcher"
     android:id="@+id/start_game_fragment"
     tools:layout="@layout/start_game_fragment"
+    >
+    <action
+        android:id="@+id/action_start_game_fragment_to_single_player_fragment"
+        app:destination="@id/single_player_fragment" />
+</fragment>
+    <fragment
+    android:name="com.tenton.memorygame.Single_Player"
+    android:label="Fragment_single_player"
+    android:id="@+id/single_player_fragment"
+    tools:layout="@layout/single__player_fragment"
     />
 </navigation>
