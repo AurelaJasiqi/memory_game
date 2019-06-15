@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/cardview_id"
     android:clickable="true"
-    android:layout_width="100dp"
-    android:layout_height="150dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     cardview:cardCornerRadius="10dp"
     android:layout_gravity="center"
-    android:layout_margin="10dp"
+    android:layout_centerHorizontal="true"
+
     >
     <ImageView
         android:id="@+id/img_id"

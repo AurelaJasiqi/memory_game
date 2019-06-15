@@ -12,6 +12,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapter.MyViewHolder> {
     int nrImages;
+    int width;
+    int height;
+    int top,left,bottom,right;
     @NonNull
     @Override
     public SinglePlayerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -22,12 +25,22 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         return new MyViewHolder(view);
     }
 
-public SinglePlayerAdapter(int nrImages){
+public SinglePlayerAdapter(int nrImages, int width, int height, int top, int right, int bottom, int left){
 this.nrImages=nrImages;
+    this.width=width;
+    this.height=height;
+    this.top=top;
+    this.left=left;
+    this.bottom=bottom;
+    this.right=right;
 }
     @Override
     public void onBindViewHolder(@NonNull SinglePlayerAdapter.MyViewHolder holder, int position) {
-
+        holder.cardView.getLayoutParams().height=height;
+        holder.cardView.getLayoutParams().width=width;
+        //ketu ndryshojme gjithashtu edhe margjinat e fotove varesisht prej vlerave qe i kemi dhene gjate deklarimit te konstruktroit
+        ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.cardView.getLayoutParams();
+        marginParams.setMargins(left, top, right, bottom);
     }
 
     @Override
