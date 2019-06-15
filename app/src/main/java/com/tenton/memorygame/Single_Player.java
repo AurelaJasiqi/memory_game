@@ -51,7 +51,7 @@ public class Single_Player extends Fragment {
                 binding.recyclerView.setAdapter(adapter);
             }
             if(level.equals("hard")){
-                adapter=new SinglePlayerAdapter(16,180,230,5,0,10,0);
+                adapter=new SinglePlayerAdapter(16,150,200,5,0,10,0);
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),4));
                 binding.recyclerView.setAdapter(adapter);
             }
