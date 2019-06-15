@@ -7,9 +7,9 @@ public class ResponseData {
 
     @SerializedName("photos")
     @Expose
-    Photos photos = null;
+   public Photos photos = null;
 
     @SerializedName("stat")
     @Expose
-    String stat = null;
+    public String stat = null;
 }

@@ -6,14 +6,14 @@ import java.util.List;
 
 public class Photos {
     @SerializedName("page")
-    int page;
+    public int page;
 
     @SerializedName("pages")
-    int pages;
+    public int pages;
 
     @SerializedName("total")
-    String total = null;
+    public String total = null;
 
     @SerializedName("photo")
-    List<Photo> photo;
+   public List<Photo> photo;
 }

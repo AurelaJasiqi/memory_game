@@ -83,7 +83,7 @@ public class Single_Player extends Fragment {
                             if(responseData != null){
 //imageResponses.add(new ImageResponse(responseData.))
                                 //     responseDataMutableLiveData
-                                Toast.makeText(getContext(),responseData.toString(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(getContext(),responseData.photos.photo.get(0).url_o,Toast.LENGTH_LONG).show();
                             }
                         }
                     }
