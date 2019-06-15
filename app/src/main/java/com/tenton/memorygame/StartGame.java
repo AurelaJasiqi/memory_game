@@ -26,7 +26,7 @@ public class StartGame extends Fragment {
   //  private Action
    // private Star action;
 
-
+private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
     //CFAlertDialogBuilder
     private CFAlertDialog.Builder builder;
 
@@ -47,32 +47,33 @@ public class StartGame extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(StartGameViewModel.class);
         binding.setViewModel(mViewModel);
+        navigateToSinglePlayer();
 
+    }
+
+    private void navigateToSinglePlayer(){
         builder=new CFAlertDialog.Builder(getContext()).setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
                 .setMessage("Choose level: ")
                 .setTextColor(getResources().getColor(R.color.whitee))
                 .setTextGravity(1).setDialogBackgroundColor(getResources().getColor(R.color.dark_pink))
                 .setCornerRadius(25f);
-
+        builder.setCancelable(true);
         builder.addButton("EASY", getResources().getColor(R.color.yellow), getResources().getColor(R.color.dark_blue),
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        val action = ListOfShopsFragmentDirections.actionListOfShopsToHome()
-//                        findNavController().navigate(action)
-                        Navigation.findNavController(getView()).navigate(R.id.single_player_fragment);
-
-
-
+                        action=StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("easy");
+                        Navigation.findNavController(getView()).navigate(action);
+                        dialog.dismiss();
                     }
                 });
-
         builder.addButton("HARD", getResources().getColor(R.color.yellow), getResources().getColor(R.color.dark_blue),
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(getContext(),"Hard",Toast.LENGTH_SHORT).show();
-
+                        action=StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("hard");
+                        Navigation.findNavController(getView()).navigate(action);
+                        dialog.dismiss();
                     }
                 });
 
@@ -82,11 +83,6 @@ public class StartGame extends Fragment {
                 builder.show();
             }
         });
-
-
-
-
-
 
     }
 

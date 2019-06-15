@@ -20,7 +20,9 @@ public class Single_Player extends Fragment {
 
     private SinglePlayerViewModel mViewModel;
     private SinglePlayerAdapter adapter;
-private SinglePlayerFragmentBinding binding;
+    private SinglePlayerFragmentBinding binding;
+    private String level;
+
     public static Single_Player newInstance() {
         return new Single_Player();
     }
@@ -37,9 +39,26 @@ private SinglePlayerFragmentBinding binding;
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SinglePlayerViewModel.class);
-        adapter=new SinglePlayerAdapter();
-        binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
-binding.recyclerView.setAdapter(adapter);
+
+
+
+        level=Single_PlayerArgs.fromBundle(getArguments()).getLevel();
+        if (level!=null){
+            if(level.equals("easy")){
+
+                adapter=new SinglePlayerAdapter(6);
+                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+                binding.recyclerView.setAdapter(adapter);
+            }
+            if(level.equals("hard")){
+                adapter=new SinglePlayerAdapter(9);
+                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(),3));
+                binding.recyclerView.setAdapter(adapter);
+            }
+
+        }
+
+
 
     }
 

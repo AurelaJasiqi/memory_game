@@ -19,5 +19,12 @@
     android:label="Fragment_single_player"
     android:id="@+id/single_player_fragment"
     tools:layout="@layout/single__player_fragment"
-    />
+    >
+        <argument
+            android:name="level"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_single_player_fragment_to_start_game_fragment"
+            app:destination="@id/start_game_fragment" />
+    </fragment>
 </navigation>

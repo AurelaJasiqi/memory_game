@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapter.MyViewHolder> {
+    int nrImages;
     @NonNull
     @Override
     public SinglePlayerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -21,7 +22,9 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         return new MyViewHolder(view);
     }
 
-
+public SinglePlayerAdapter(int nrImages){
+this.nrImages=nrImages;
+}
     @Override
     public void onBindViewHolder(@NonNull SinglePlayerAdapter.MyViewHolder holder, int position) {
 
@@ -29,7 +32,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
 
     @Override
     public int getItemCount() {
-        return 6;
+        return nrImages;
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
