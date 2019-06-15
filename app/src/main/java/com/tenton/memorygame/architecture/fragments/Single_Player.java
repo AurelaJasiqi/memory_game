@@ -26,6 +26,7 @@ import com.tenton.memorygame.databinding.SinglePlayerFragmentBinding;
 import com.tenton.memorygame.utilities.Constants;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -64,8 +65,8 @@ public class Single_Player extends Fragment {
         if (level != null) {
 
             if (level.equals("easy")) {
-                adapter = new SinglePlayerAdapter(imageResponse,getContext(),8, 200, 250, 10, 0, 10, 0);
-                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+                adapter = new SinglePlayerAdapter(imageResponse,getContext(),6, 200, 250, 10, 0, 10, 0);
+                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
                 binding.recyclerView.setAdapter(adapter);
             }
             if (level.equals("hard")) {
@@ -86,6 +87,7 @@ public class Single_Player extends Fragment {
 
         mViewModel.imageResponse.observe(this,newResponse ->{
             imageResponse.addAll(newResponse);
+            Collections.shuffle(imageResponse);
             adapter.notifyDataSetChanged();
 
         });
