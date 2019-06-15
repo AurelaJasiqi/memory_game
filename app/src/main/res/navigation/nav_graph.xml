@@ -5,7 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/start_game_fragment">
 <fragment
-    android:name="com.tenton.memorygame.StartGame"
+    android:name="com.tenton.memorygame.architecture.fragments.StartGame"
     android:label="Fragment_launcher"
     android:id="@+id/start_game_fragment"
     tools:layout="@layout/start_game_fragment"
@@ -15,7 +15,7 @@
         app:destination="@id/single_player_fragment" />
 </fragment>
     <fragment
-    android:name="com.tenton.memorygame.Single_Player"
+    android:name="com.tenton.memorygame.architecture.fragments.Single_Player"
     android:label="Fragment_single_player"
     android:id="@+id/single_player_fragment"
     tools:layout="@layout/single__player_fragment"

@@ -1,4 +1,4 @@
-package com.tenton.memorygame;
+package com.tenton.memorygame.architecture.fragments;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.tenton.memorygame.R;
+import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
+import com.tenton.memorygame.architecture.viewmodels.SinglePlayerViewModel;
 import com.tenton.memorygame.databinding.SinglePlayerFragmentBinding;
 
 public class Single_Player extends Fragment {
@@ -30,7 +33,7 @@ public class Single_Player extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.single__player_fragment,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.single__player_fragment,container,false);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
@@ -42,7 +45,7 @@ public class Single_Player extends Fragment {
 
 
 
-        level=Single_PlayerArgs.fromBundle(getArguments()).getLevel();
+        level= Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         if (level!=null){
             if(level.equals("easy")){
 

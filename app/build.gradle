@@ -41,7 +41,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
-  //  classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.1.0-alpha05"
 
     //segmentedButtons
     // implementation 'com.github.addisonElliott:RippleDrawable:3.2.1'
@@ -49,5 +48,10 @@ dependencies {
 
     //CFAlert Dialog
     implementation 'com.crowdfire.cfalertdialog:cfalertdialog:1.1.0'
+
+    //retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
 
 }

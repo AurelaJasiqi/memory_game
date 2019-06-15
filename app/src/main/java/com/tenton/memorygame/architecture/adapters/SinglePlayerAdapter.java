@@ -1,4 +1,4 @@
-package com.tenton.memorygame;
+package com.tenton.memorygame.architecture.adapters;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.tenton.memorygame.R;
 
 
 public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapter.MyViewHolder> {

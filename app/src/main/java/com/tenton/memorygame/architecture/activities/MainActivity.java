@@ -1,7 +1,9 @@
-package com.tenton.memorygame;
+package com.tenton.memorygame.architecture.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.tenton.memorygame.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.tenton.memorygame;
+package com.tenton.memorygame.architecture.fragments;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
@@ -14,9 +14,10 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.crowdfire.cfalertdialog.CFAlertDialog;
+import com.tenton.memorygame.R;
+import com.tenton.memorygame.architecture.viewmodels.StartGameViewModel;
 import com.tenton.memorygame.databinding.StartGameFragmentBinding;
 
 public class StartGame extends Fragment {
@@ -37,7 +38,7 @@ private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater,R.layout.start_game_fragment,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.start_game_fragment,container,false);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
         }

@@ -1,4 +1,4 @@
-package com.tenton.memorygame;
+package com.tenton.memorygame.architecture.viewmodels;
 
 import androidx.lifecycle.ViewModel;
 

@@ -3,11 +3,11 @@
     <data>
         <variable
             name="start_game"
-            type="com.tenton.memorygame.StartGame"/>
+            type="com.tenton.memorygame.architecture.fragments.StartGame"/>
 
         <variable
             name="viewModel"
-            type="com.tenton.memorygame.StartGameViewModel"/>
+            type="com.tenton.memorygame.architecture.viewmodels.StartGameViewModel"/>
     </data>
     <ScrollView
         android:layout_width="match_parent"
@@ -19,13 +19,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StartGame">
+    tools:context=".architecture.fragments.StartGame">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".architecture.activities.MainActivity">
 
         <ImageView
             android:id="@+id/imageView"
