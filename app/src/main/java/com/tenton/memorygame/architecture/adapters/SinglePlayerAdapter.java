@@ -3,6 +3,7 @@ package com.tenton.memorygame.architecture.adapters;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.tenton.memorygame.R;
+import com.tenton.memorygame.architecture.models.ImageResponse;
+
+import java.util.List;
 
 
 public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapter.MyViewHolder> {
@@ -22,6 +27,8 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     int width;
     int height;
     int top, left, bottom, right;
+    List<ImageResponse> imageResponse;
+    Context context;
 
     @NonNull
     @Override
@@ -33,7 +40,9 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         return new MyViewHolder(view);
     }
 
-    public SinglePlayerAdapter(int nrImages, int width, int height, int top, int right, int bottom, int left) {
+    public SinglePlayerAdapter(List<ImageResponse> imageResponse, Context context, int nrImages, int width, int height, int top, int right, int bottom, int left) {
+        this.imageResponse=imageResponse;
+        this.context=context;
         this.nrImages = nrImages;
         this.width = width;
         this.height = height;
@@ -63,7 +72,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        holder.imageView.setImageResource(R.drawable.index);
+                        Glide.with(context).load(imageResponse.get(position).getImgUrl()).into(holder.imageView);
                         oa2.start();
                     }
                 });
@@ -85,8 +94,8 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.cardview_id);
-            imageView = (ImageView) itemView.findViewById(R.id.img_id);
+            cardView = itemView.findViewById(R.id.cardview_id);
+            imageView = itemView.findViewById(R.id.img_id);
         }
     }
 }
