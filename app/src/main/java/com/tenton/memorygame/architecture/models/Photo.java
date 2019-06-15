@@ -4,38 +4,38 @@ import com.google.gson.annotations.SerializedName;
 
 public class Photo {
     @SerializedName("id")
-    String id=null;
+    String id = null;
 
     @SerializedName("owner")
-    String owner=null;
+    String owner = null;
 
     @SerializedName("secret")
-    String secret=null;
+    String secret = null;
 
     @SerializedName("server")
-    String server=null;
+    String server = null;
 
     @SerializedName("farm")
-    String farm=null;
+    String farm = null;
+
     @SerializedName("title")
-    String title=null;
+    String title = null;
 
     @SerializedName("ispublic")
-    String ispublic=null;
+    String ispublic = null;
 
     @SerializedName("isfriend")
-    String isfriend=null;
+    String isfriend = null;
 
     @SerializedName("isfamily")
-    String isfamily=null;
+    String isfamily = null;
 
     @SerializedName("url_o")
-    String url_o=null;
+    String url_o = null;
 
     @SerializedName("height_o")
-    String height_o=null;
+    String height_o = null;
 
     @SerializedName("width_o")
-    String width_o=null;
-
+    String width_o = null;
 }

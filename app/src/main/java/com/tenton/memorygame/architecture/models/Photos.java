@@ -7,10 +7,13 @@ import java.util.List;
 public class Photos {
     @SerializedName("page")
     int page;
+
     @SerializedName("pages")
     int pages;
+
     @SerializedName("total")
-    String total=null;
+    String total = null;
+
     @SerializedName("photo")
     List<Photo> photo;
 }

@@ -4,11 +4,12 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class ResponseData {
+
     @SerializedName("photos")
     @Expose
-    Photos photos=null;
+    Photos photos = null;
 
     @SerializedName("stat")
     @Expose
-    String stat=null;
+    String stat = null;
 }

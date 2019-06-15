@@ -9,10 +9,11 @@ public class ServiceFactory {
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance() {
-        if(retrofit==null){
-            retrofit=new Retrofit.Builder().baseUrl(Constants.BASE_URL).
+        if (retrofit == null) {
+            retrofit = new Retrofit.Builder().baseUrl(Constants.BASE_URL).
                     addConverterFactory(GsonConverterFactory.create()).
-                    build();}
+                    build();
+        }
         return retrofit;
     }
 

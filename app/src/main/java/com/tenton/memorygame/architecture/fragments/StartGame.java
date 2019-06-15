@@ -24,10 +24,10 @@ public class StartGame extends Fragment {
 
     private StartGameViewModel mViewModel;
     private StartGameFragmentBinding binding;
-  //  private Action
-   // private Star action;
+    //  private Action
+    // private Star action;
 
-private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
+    private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
     //CFAlertDialogBuilder
     private CFAlertDialog.Builder builder;
 
@@ -38,10 +38,10 @@ private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.start_game_fragment,container,false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.start_game_fragment, container, false);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
-        }
+    }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -52,8 +52,8 @@ private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action
 
     }
 
-    private void navigateToSinglePlayer(){
-        builder=new CFAlertDialog.Builder(getContext()).setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
+    private void navigateToSinglePlayer() {
+        builder = new CFAlertDialog.Builder(getContext()).setDialogStyle(CFAlertDialog.CFAlertStyle.ALERT)
                 .setMessage("Choose level: ")
                 .setTextColor(getResources().getColor(R.color.whitee))
                 .setTextGravity(1).setDialogBackgroundColor(getResources().getColor(R.color.dark_pink))
@@ -63,7 +63,7 @@ private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        action=StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("easy");
+                        action = StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("easy");
                         Navigation.findNavController(getView()).navigate(action);
                         dialog.dismiss();
                     }
@@ -72,7 +72,7 @@ private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        action=StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("hard");
+                        action = StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("hard");
                         Navigation.findNavController(getView()).navigate(action);
                         dialog.dismiss();
                     }

@@ -1,182 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
             name="start_game"
-            type="com.tenton.memorygame.architecture.fragments.StartGame"/>
+            type="com.tenton.memorygame.architecture.fragments.StartGame" />
 
         <variable
             name="viewModel"
-            type="com.tenton.memorygame.architecture.viewmodels.StartGameViewModel"/>
+            type="com.tenton.memorygame.architecture.viewmodels.StartGameViewModel" />
     </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_gradient"
-        >
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".architecture.fragments.StartGame">
+        android:background="@drawable/background_gradient">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".architecture.activities.MainActivity">
-
-        <ImageView
-            android:id="@+id/imageView"
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/app_name" />
+            android:layout_height="match_parent"
+            tools:context=".architecture.fragments.StartGame">
 
-        <Button
-            android:id="@+id/btn_single_player"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/button_radius"
-            android:backgroundTint="@color/light_green"
-            android:text="Single Player"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:fontFamily="casual"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".architecture.activities.MainActivity">
 
-        <Button
-            android:id="@+id/btn_multi_player"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/button_radius"
-            android:backgroundTint="@color/yellow"
-            android:text="Multi Player"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:fontFamily="casual"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_single_player" />
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/app_name" />
 
-        <Button
-            android:id="@+id/btn_multi_player_bluetooth"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="50dp"
-            android:background="@drawable/button_radius"
-            android:backgroundTint="@color/light_green"
-            android:text="Bluetooth"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            app:fontFamily="casual"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_multi_player" />
+                <Button
+                    android:id="@+id/btn_single_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/button_radius"
+                    android:backgroundTint="@color/light_green"
+                    android:text="Single Player"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="44dp"
-            android:layout_marginEnd="20dp"
-            android:weightSum="6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_multi_player_bluetooth">
+                <Button
+                    android:id="@+id/btn_multi_player"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/button_radius"
+                    android:backgroundTint="@color/yellow"
+                    android:text="Multi Player"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_single_player" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@color/white"
-                />
+                <Button
+                    android:id="@+id/btn_multi_player_bluetooth"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="50dp"
+                    android:background="@drawable/button_radius"
+                    android:backgroundTint="@color/light_green"
+                    android:text="Bluetooth"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:fontFamily="casual"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_multi_player" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Avatar"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:fontFamily="casual" />
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="44dp"
+                    android:layout_marginEnd="20dp"
+                    android:weightSum="6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_multi_player_bluetooth">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@color/white"
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:background="@color/white" />
 
-                />
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:fontFamily="casual"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Avatar"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
 
-        <LinearLayout
-            android:id="@+id/btn_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="2dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="2"
+                        android:background="@color/white" />
+                </LinearLayout>
 
-            <Button
-                android:background="@drawable/dog_yellow"
-                android:id="@+id/btn_dog"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:gravity="center" />
+                <LinearLayout
+                    android:id="@+id/btn_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <Button
-                android:id="@+id/btn_cat"
-                android:background="@drawable/butterfly"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:layout_marginStart="35dp"
-                android:layout_marginEnd="35dp"
-                android:layout_gravity="center"
-                android:gravity="center" />
+                    <Button
+                        android:id="@+id/btn_dog"
+                        android:layout_width="70dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/dog_yellow"
+                        android:gravity="center" />
 
-            <Button
-                android:id="@+id/btn_panda"
-                android:background="@drawable/panda"
-                android:backgroundTint="@color/yellow"
-                android:layout_width="70dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:gravity="center" />
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    <Button
+                        android:id="@+id/btn_cat"
+                        android:layout_width="70dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="35dp"
+                        android:layout_marginEnd="35dp"
+                        android:background="@drawable/butterfly"
+                        android:gravity="center" />
 
-</FrameLayout>
+                    <Button
+                        android:id="@+id/btn_panda"
+                        android:layout_width="70dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/panda"
+                        android:backgroundTint="@color/yellow"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
     </ScrollView>
 </layout>
