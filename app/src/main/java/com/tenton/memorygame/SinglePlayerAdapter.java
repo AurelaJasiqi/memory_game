@@ -1,8 +1,13 @@
 package com.tenton.memorygame;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +20,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     int width;
     int height;
     int top,left,bottom,right;
+
     @NonNull
     @Override
     public SinglePlayerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,9 +44,27 @@ this.nrImages=nrImages;
     public void onBindViewHolder(@NonNull SinglePlayerAdapter.MyViewHolder holder, int position) {
         holder.cardView.getLayoutParams().height=height;
         holder.cardView.getLayoutParams().width=width;
+        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(holder.cardView, "scaleX", 1f, 0f);
+        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(holder.cardView, "scaleX", 0f, 1f);
         //ketu ndryshojme gjithashtu edhe margjinat e fotove varesisht prej vlerave qe i kemi dhene gjate deklarimit te konstruktroit
         ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.cardView.getLayoutParams();
         marginParams.setMargins(left, top, right, bottom);
+        holder.imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                oa1.setInterpolator(new DecelerateInterpolator());
+                oa2.setInterpolator(new AccelerateDecelerateInterpolator());
+                oa1.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        holder.imageView.setImageResource(R.drawable.index);
+                        oa2.start();
+                    }
+                });
+                oa1.start();
+            }
+        });
     }
 
     @Override
