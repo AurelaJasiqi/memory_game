@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import es.dmoral.toasty.Toasty;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,7 +44,7 @@ public class Single_Player extends Fragment {
     private SinglePlayerAdapter adapter;
     private SinglePlayerFragmentBinding binding;
     private String level;
-    ArrayList<ImageResponse> imageResponse = new ArrayList<>();
+    List<ImageResponse> imageResponse = new ArrayList<>();
     private NetworkUtil networkUtil;
 
 
@@ -64,52 +65,30 @@ public class Single_Player extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SinglePlayerViewModel.class);
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
-
-
-
         networkUtil=new NetworkUtil(getContext());
         if(!networkUtil.isConnected()){
-            imageResponse.add(new ImageResponse( 1, "p1id1",R.drawable.dog_icon));
-            imageResponse.add(new ImageResponse( 2, "p2id1",R.drawable.sheep_icon));
-            imageResponse.add(new ImageResponse( 3, "p3id1",R.drawable.lion_icon));
-
-            imageResponse.add(new ImageResponse( 1, "p1id2",R.drawable.dog_icon));
-            imageResponse.add(new ImageResponse( 2, "p2id2",R.drawable.sheep_icon));
-            imageResponse.add(new ImageResponse( 3, "p3id2",R.drawable.lion_icon));
-
-            imageResponse.add(new ImageResponse( 4, "p4id1",R.drawable.chicken_icon));
-            imageResponse.add(new ImageResponse( 5, "p5id1",R.drawable.cow_icon));
-            imageResponse.add(new ImageResponse( 6, "p6id1",R.drawable.bunny_icon));
-
-
-            imageResponse.add(new ImageResponse( 4, "p4id2",R.drawable.chicken_icon));
-            imageResponse.add(new ImageResponse( 5, "p5id2",R.drawable.cow_icon));
-            imageResponse.add(new ImageResponse( 6, "p6id2",R.drawable.bunny_icon));
+            Toasty.info(getContext(), "Here is some info for you.", Toast.LENGTH_SHORT, true).show();
+            addPhotos();
+            sliceArray();
             Collections.shuffle(imageResponse);
-
         }else {
             onLoad();
             mViewModel.init();}
         setAdapter();
-
     }
-
 
     private void onLoad() {
         binding.setMViewModel(mViewModel);
-
         mViewModel.imageResponse.observe(this, newResponse -> {
             imageResponse.addAll(newResponse);
+            sliceArray();
             Collections.shuffle(imageResponse);
             adapter.notifyDataSetChanged();
-
         });
     }
 
-
 public void setAdapter() {
     if (level != null) {
-
         if (level.equals("easy")) {
             adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 200, 250, 10, 0, 10, 0);
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
@@ -121,6 +100,31 @@ public void setAdapter() {
             binding.recyclerView.setAdapter(adapter);
         }
     }
+}
+
+public void sliceArray(){
+    if (level.equals("easy")){
+        imageResponse=imageResponse.subList(0,6);
+    }
+}
+
+public void addPhotos(){
+    imageResponse.add(new ImageResponse( 1, "p1id1",R.drawable.dog_icon));
+    imageResponse.add(new ImageResponse( 2, "p2id1",R.drawable.sheep_icon));
+    imageResponse.add(new ImageResponse( 3, "p3id1",R.drawable.lion_icon));
+
+    imageResponse.add(new ImageResponse( 1, "p1id2",R.drawable.dog_icon));
+    imageResponse.add(new ImageResponse( 2, "p2id2",R.drawable.sheep_icon));
+    imageResponse.add(new ImageResponse( 3, "p3id2",R.drawable.lion_icon));
+
+    imageResponse.add(new ImageResponse( 4, "p4id1",R.drawable.chicken_icon));
+    imageResponse.add(new ImageResponse( 5, "p5id1",R.drawable.cow_icon));
+    imageResponse.add(new ImageResponse( 6, "p6id1",R.drawable.bunny_icon));
+
+
+    imageResponse.add(new ImageResponse( 4, "p4id2",R.drawable.chicken_icon));
+    imageResponse.add(new ImageResponse( 5, "p5id2",R.drawable.cow_icon));
+    imageResponse.add(new ImageResponse( 6, "p6id2",R.drawable.bunny_icon));
 }
 }
 
