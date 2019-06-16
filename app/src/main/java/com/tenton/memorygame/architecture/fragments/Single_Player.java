@@ -3,6 +3,9 @@ package com.tenton.memorygame.architecture.fragments;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -24,6 +27,7 @@ import com.tenton.memorygame.architecture.models.ResponseData;
 import com.tenton.memorygame.architecture.viewmodels.SinglePlayerViewModel;
 import com.tenton.memorygame.databinding.SinglePlayerFragmentBinding;
 import com.tenton.memorygame.utilities.Constants;
+import com.tenton.memorygame.utilities.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +44,7 @@ public class Single_Player extends Fragment {
     private SinglePlayerFragmentBinding binding;
     private String level;
     ArrayList<ImageResponse> imageResponse = new ArrayList<>();
+    private NetworkUtil networkUtil;
 
 
     public static Single_Player newInstance() {
@@ -58,11 +63,49 @@ public class Single_Player extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SinglePlayerViewModel.class);
-        onLoad();
-        mViewModel.init();
-
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
-        setAdapter();
+        if (level != null) {
+
+            if (level.equals("easy")) {
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 200, 250, 10, 0, 10, 0);
+                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                binding.recyclerView.setAdapter(adapter);
+            }
+            if (level.equals("hard")) {
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 150, 200, 5, 0, 10, 0);
+                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+                binding.recyclerView.setAdapter(adapter);
+            }
+        }
+        networkUtil=new NetworkUtil(getContext());
+        if(networkUtil.isConnected()) {
+            onLoad();
+            mViewModel.init();
+        }
+        else {
+            imageResponse.add(new ImageResponse( 1, "p1id1",R.drawable.dog_icon));
+            imageResponse.add(new ImageResponse( 2, "p2id1",R.drawable.sheep_icon));
+            imageResponse.add(new ImageResponse( 3, "p3id1",R.drawable.lion_icon));
+
+            imageResponse.add(new ImageResponse( 1, "p1id2",R.drawable.dog_icon));
+            imageResponse.add(new ImageResponse( 2, "p2id2",R.drawable.sheep_icon));
+            imageResponse.add(new ImageResponse( 3, "p3id2",R.drawable.lion_icon));
+
+            imageResponse.add(new ImageResponse( 4, "p4id1",R.drawable.chicken_icon));
+            imageResponse.add(new ImageResponse( 5, "p5id1",R.drawable.cow_icon));
+            imageResponse.add(new ImageResponse( 6, "p6id1",R.drawable.bunny_icon));
+
+
+            imageResponse.add(new ImageResponse( 4, "p4id2",R.drawable.chicken_icon));
+            imageResponse.add(new ImageResponse( 5, "p5id2",R.drawable.cow_icon));
+            imageResponse.add(new ImageResponse( 6, "p6id2",R.drawable.bunny_icon));
+            Collections.shuffle(imageResponse);
+            adapter.notifyDataSetChanged();
+
+
+        }
+
+
 
 
     }
@@ -80,18 +123,23 @@ public class Single_Player extends Fragment {
     }
 
     public void setAdapter() {
-        if (level != null) {
 
-            if (level.equals("easy")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 200, 250, 10, 0, 10, 0);
-                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-                binding.recyclerView.setAdapter(adapter);
-            }
-            if (level.equals("hard")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 150, 200, 5, 0, 10, 0);
-                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-                binding.recyclerView.setAdapter(adapter);
-            }
-        }
     }
+
+//    private boolean haveNetworkConnection() {
+//        boolean haveConnectedWifi = false;
+//        boolean haveConnectedMobile = false;
+//
+//        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
+//        for (NetworkInfo ni : netInfo) {
+//            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
+//                if (ni.isConnected())
+//                    haveConnectedWifi = true;
+//            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
+//                if (ni.isConnected())
+//                    haveConnectedMobile = true;
+//        }
+//        return haveConnectedWifi || haveConnectedMobile;
+//    }
 }

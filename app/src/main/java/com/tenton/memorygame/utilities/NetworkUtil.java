@@ -12,21 +12,26 @@ public class NetworkUtil {
     private NetworkInfo networkInfo = null;
     private InetAddress ipAddr;
 
-    public Boolean isConnected() {
-         connectivityManager = (ConnectivityManager ) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-         networkInfo = connectivityManager.getActiveNetworkInfo();
+   public NetworkUtil(Context ctx){
+        this.context=ctx;
+    }
 
-         if (networkInfo != null && networkInfo.isConnected()) {
+        public Boolean isConnected () {
+            connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+            networkInfo = connectivityManager.getActiveNetworkInfo();
 
-             try {
-                 ipAddr = InetAddress.getByName("google.com");
-                 !ipAddr.equals("");
-
-            } catch ( Exception e) {
+            if (networkInfo != null && networkInfo.isConnected()) {
+                try {
+                    ipAddr = InetAddress.getByName("google.com");
+                    if (!ipAddr.equals("")) {
+                        return true;
+                    }
+                } catch (Exception e) {
+                    return false;
+                }
+                return true;
+            } else {
                 return false;
             }
-
-        } else { return false; }
-
+        }
     }
-}

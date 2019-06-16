@@ -72,7 +72,11 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        Glide.with(context).load(imageResponse.get(position).getImgUrl()).into(holder.imageView);
+                        if(imageResponse.get(position).getImgUrl() != null){
+                        Glide.with(context).load(imageResponse.get(position).getImgUrl()).into(holder.imageView);}
+                        else {
+                            holder.imageView.setImageResource(imageResponse.get(position).getSource());
+                        }
                         oa2.start();
                     }
                 });
