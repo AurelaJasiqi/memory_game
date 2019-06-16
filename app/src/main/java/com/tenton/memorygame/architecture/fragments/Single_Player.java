@@ -67,7 +67,7 @@ public class Single_Player extends Fragment {
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         networkUtil=new NetworkUtil(getContext());
         if(!networkUtil.isConnected()){
-            Toasty.info(getContext(), "Here is some info for you.", Toast.LENGTH_SHORT, true).show();
+            Toasty.info(getContext(), "No internet connection. Offline mode!", Toast.LENGTH_SHORT, true).show();
             addPhotos();
             sliceArray();
             Collections.shuffle(imageResponse);
