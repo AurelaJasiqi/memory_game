@@ -63,7 +63,9 @@ public class Single_Player extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         mViewModel = ViewModelProviders.of(this).get(SinglePlayerViewModel.class);
+
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         networkUtil=new NetworkUtil(getContext());
         if(!networkUtil.isConnected()){
@@ -73,7 +75,7 @@ public class Single_Player extends Fragment {
             Collections.shuffle(imageResponse);
         }else {
             onLoad();
-            mViewModel.init();}
+            mViewModel.init("chicken");}
         setAdapter();
     }
 

@@ -18,15 +18,15 @@ public SinglePlayerViewModel(){
         return;
     }
     imagesRepository = ImagesRepository.getInstance();
-    imageResponse = imagesRepository.getResponse("dog",6);
+    imageResponse = imagesRepository.getResponse("chicken",6);
 
 }
-    public void init(){
+    public void init(String text){
         if (imageResponse != null){
             return;
         }
         imagesRepository = ImagesRepository.getInstance();
-        imageResponse = imagesRepository.getResponse("dog",6);
+        imageResponse = imagesRepository.getResponse(text,6);
 
     }
 
