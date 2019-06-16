@@ -4,12 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -30,6 +32,11 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     int top, left, bottom, right;
     List<ImageResponse> imageResponse;
     Context context;
+
+    //
+    String photoId;
+    int photoTag;
+    Boolean isClicked = false;
 
     @NonNull
     @Override
@@ -67,6 +74,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 oa1.setInterpolator(new DecelerateInterpolator());
                 oa2.setInterpolator(new AccelerateDecelerateInterpolator());
                 oa1.addListener(new AnimatorListenerAdapter() {
@@ -74,7 +82,9 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
                         if(imageResponse.get(position).getImgUrl() != null){
-                        Glide.with(context).load(imageResponse.get(position).getImgUrl()).into(holder.imageView);}
+                        Glide.with(context).load(imageResponse.get(position).getImgUrl()).into(holder.imageView);
+
+                        }
                         else {
                             holder.imageView.setImageResource(imageResponse.get(position).getSource());
                         }
@@ -82,6 +92,19 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
                     }
                 });
                 oa1.start();
+
+               if(!isClicked){
+                   photoId=imageResponse.get(position).getImgId();
+                   photoTag=imageResponse.get(position).getTag();
+                   isClicked=true;
+
+
+               }else{
+
+               }
+
+
+
             }
         });
 
