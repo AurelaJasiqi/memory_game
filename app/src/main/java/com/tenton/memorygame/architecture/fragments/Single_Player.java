@@ -64,25 +64,11 @@ public class Single_Player extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(SinglePlayerViewModel.class);
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
-        if (level != null) {
 
-            if (level.equals("easy")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 200, 250, 10, 0, 10, 0);
-                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-                binding.recyclerView.setAdapter(adapter);
-            }
-            if (level.equals("hard")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 150, 200, 5, 0, 10, 0);
-                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-                binding.recyclerView.setAdapter(adapter);
-            }
-        }
+
+
         networkUtil=new NetworkUtil(getContext());
-        if(networkUtil.isConnected()) {
-            onLoad();
-            mViewModel.init();
-        }
-        else {
+        if(!networkUtil.isConnected()){
             imageResponse.add(new ImageResponse( 1, "p1id1",R.drawable.dog_icon));
             imageResponse.add(new ImageResponse( 2, "p2id1",R.drawable.sheep_icon));
             imageResponse.add(new ImageResponse( 3, "p3id1",R.drawable.lion_icon));
@@ -100,13 +86,11 @@ public class Single_Player extends Fragment {
             imageResponse.add(new ImageResponse( 5, "p5id2",R.drawable.cow_icon));
             imageResponse.add(new ImageResponse( 6, "p6id2",R.drawable.bunny_icon));
             Collections.shuffle(imageResponse);
-            adapter.notifyDataSetChanged();
 
-
-        }
-
-
-
+        }else {
+            onLoad();
+            mViewModel.init();}
+        setAdapter();
 
     }
 
@@ -122,24 +106,21 @@ public class Single_Player extends Fragment {
         });
     }
 
-    public void setAdapter() {
 
+public void setAdapter() {
+    if (level != null) {
+
+        if (level.equals("easy")) {
+            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 200, 250, 10, 0, 10, 0);
+            binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            binding.recyclerView.setAdapter(adapter);
+        }
+        if (level.equals("hard")) {
+            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 150, 200, 5, 0, 10, 0);
+            binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+            binding.recyclerView.setAdapter(adapter);
+        }
     }
-
-//    private boolean haveNetworkConnection() {
-//        boolean haveConnectedWifi = false;
-//        boolean haveConnectedMobile = false;
-//
-//        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-//        NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-//        for (NetworkInfo ni : netInfo) {
-//            if (ni.getTypeName().equalsIgnoreCase("WIFI"))
-//                if (ni.isConnected())
-//                    haveConnectedWifi = true;
-//            if (ni.getTypeName().equalsIgnoreCase("MOBILE"))
-//                if (ni.isConnected())
-//                    haveConnectedMobile = true;
-//        }
-//        return haveConnectedWifi || haveConnectedMobile;
-//    }
 }
+}
+

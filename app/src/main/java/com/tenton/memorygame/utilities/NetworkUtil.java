@@ -11,7 +11,7 @@ public class NetworkUtil {
     private Context context;
     private NetworkInfo networkInfo = null;
     private InetAddress ipAddr;
-
+private boolean isConnected=false;
    public NetworkUtil(Context ctx){
         this.context=ctx;
     }
@@ -21,17 +21,9 @@ public class NetworkUtil {
             networkInfo = connectivityManager.getActiveNetworkInfo();
 
             if (networkInfo != null && networkInfo.isConnected()) {
-                try {
-                    ipAddr = InetAddress.getByName("google.com");
-                    if (!ipAddr.equals("")) {
-                        return true;
-                    }
-                } catch (Exception e) {
-                    return false;
-                }
-                return true;
-            } else {
-                return false;
+                isConnected=true;
+
             }
+            return isConnected;
         }
     }
