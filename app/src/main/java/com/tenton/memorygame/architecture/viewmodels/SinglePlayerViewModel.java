@@ -18,7 +18,7 @@ public SinglePlayerViewModel(){
         return;
     }
     imagesRepository = ImagesRepository.getInstance();
-    imageResponse = imagesRepository.getResponse("chicken",6);
+    imageResponse = imagesRepository.getResponse("cats",6);
 
 }
     public void init(String text){
