@@ -62,34 +62,36 @@ public class Single_Player extends Fragment {
         mViewModel.init();
 
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
-        if (level != null) {
-
-            if (level.equals("easy")) {
-                adapter = new SinglePlayerAdapter(imageResponse,getContext(),6, 200, 250, 10, 0, 10, 0);
-                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-                binding.recyclerView.setAdapter(adapter);
-            }
-            if (level.equals("hard")) {
-                adapter = new SinglePlayerAdapter(imageResponse,getContext(),12, 150, 200, 5, 0, 10, 0);
-                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-                binding.recyclerView.setAdapter(adapter);
-            }
-        }
-
-
+        setAdapter();
 
 
     }
 
 
-    private void onLoad(){
+    private void onLoad() {
         binding.setMViewModel(mViewModel);
 
-        mViewModel.imageResponse.observe(this,newResponse ->{
+        mViewModel.imageResponse.observe(this, newResponse -> {
             imageResponse.addAll(newResponse);
             Collections.shuffle(imageResponse);
             adapter.notifyDataSetChanged();
 
         });
+    }
+
+    public void setAdapter() {
+        if (level != null) {
+
+            if (level.equals("easy")) {
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 200, 250, 10, 0, 10, 0);
+                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+                binding.recyclerView.setAdapter(adapter);
+            }
+            if (level.equals("hard")) {
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 150, 200, 5, 0, 10, 0);
+                binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+                binding.recyclerView.setAdapter(adapter);
+            }
+        }
     }
 }
