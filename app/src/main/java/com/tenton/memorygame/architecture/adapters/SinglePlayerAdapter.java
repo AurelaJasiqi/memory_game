@@ -29,7 +29,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     int nrImages;
     int width;
     int height;
-    int top, left, bottom, right;
+
     List<ImageResponse> imageResponse;
     Context context;
 
@@ -48,16 +48,13 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         return new MyViewHolder(view);
     }
 
-    public SinglePlayerAdapter(List<ImageResponse> imageResponse, Context context, int nrImages, int width, int height, int top, int right, int bottom, int left) {
+    public SinglePlayerAdapter(List<ImageResponse> imageResponse, Context context, int nrImages, int width, int height) {
         this.imageResponse=imageResponse;
         this.context=context;
         this.nrImages = nrImages;
         this.width = width;
         this.height = height;
-        this.top = top;
-        this.left = left;
-        this.bottom = bottom;
-        this.right = right;
+
     }
 
     @Override
@@ -65,8 +62,6 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         //ketu ndryshojme gjithashtu edhe margjinat e fotove varesisht prej vlerave qe i kemi dhene gjate deklarimit te konstruktroit
         holder.cardView.getLayoutParams().height = height;
         holder.cardView.getLayoutParams().width = width;
-        ViewGroup.MarginLayoutParams marginParams = (ViewGroup.MarginLayoutParams) holder.cardView.getLayoutParams();
-        marginParams.setMargins(left, top, right, bottom);
 
         //Flip Animation
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(holder.cardView, "scaleX", 1f, 0f);

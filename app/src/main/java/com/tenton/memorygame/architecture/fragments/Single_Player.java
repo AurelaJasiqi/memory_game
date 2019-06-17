@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import com.tenton.memorygame.architecture.models.ResponseData;
 import com.tenton.memorygame.architecture.viewmodels.SinglePlayerViewModel;
 import com.tenton.memorygame.databinding.SinglePlayerFragmentBinding;
 import com.tenton.memorygame.utilities.Constants;
+import com.tenton.memorygame.utilities.EqualSpacingItemDecoration;
 import com.tenton.memorygame.utilities.NetworkUtil;
 
 import java.util.ArrayList;
@@ -94,13 +96,16 @@ public class Single_Player extends Fragment {
 public void setAdapter() {
     if (level != null) {
         if (level.equals("easy")) {
-            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 200, 250, 10, 0, 10, 0);
+            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 220, 270);
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+          binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(20),EqualSpacingItemDecoration.GRID));
             binding.recyclerView.setAdapter(adapter);
         }
         if (level.equals("hard")) {
-            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 150, 200, 5, 0, 10, 0);
+            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 170, 220);
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
+            binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
+            binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(20),EqualSpacingItemDecoration.GRID));
             binding.recyclerView.setAdapter(adapter);
         }
     }
@@ -130,5 +135,8 @@ public void addPhotos(){
     imageResponse.add(new ImageResponse( 5, "p5id2",R.drawable.cow_icon));
     imageResponse.add(new ImageResponse( 6, "p6id2",R.drawable.bunny_icon));
 }
+    public int  dpToPx(int dp) {
+        return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
+    }
 }
 
