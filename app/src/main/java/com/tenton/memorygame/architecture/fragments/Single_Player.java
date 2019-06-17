@@ -96,13 +96,13 @@ public class Single_Player extends Fragment {
 public void setAdapter() {
     if (level != null) {
         if (level.equals("easy")) {
-            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 220, 270);
+            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, dpToPx(80), dpToPx(100));
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
           binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(16),EqualSpacingItemDecoration.GRID));
             binding.recyclerView.setAdapter(adapter);
         }
         if (level.equals("hard")) {
-            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 170, 220);
+            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, dpToPx(70), dpToPx(95));
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
             binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(20),EqualSpacingItemDecoration.GRID));
             binding.recyclerView.setAdapter(adapter);
