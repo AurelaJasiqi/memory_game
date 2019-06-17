@@ -26,6 +26,7 @@ import com.tenton.memorygame.architecture.api.ServiceFactory;
 import com.tenton.memorygame.architecture.models.ImageResponse;
 import com.tenton.memorygame.architecture.models.ResponseData;
 import com.tenton.memorygame.architecture.viewmodels.SinglePlayerViewModel;
+import com.tenton.memorygame.architecture.viewmodelsfactory.SinglePlayerViewmodelFactory;
 import com.tenton.memorygame.databinding.SinglePlayerFragmentBinding;
 import com.tenton.memorygame.utilities.Constants;
 import com.tenton.memorygame.utilities.EqualSpacingItemDecoration;
@@ -46,6 +47,7 @@ public class Single_Player extends Fragment {
     private SinglePlayerAdapter adapter;
     private SinglePlayerFragmentBinding binding;
     private String level;
+    private String animal;
     List<ImageResponse> imageResponse = new ArrayList<>();
     private NetworkUtil networkUtil;
 
@@ -65,8 +67,8 @@ public class Single_Player extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        mViewModel = ViewModelProviders.of(this).get(SinglePlayerViewModel.class);
+animal=Single_PlayerArgs.fromBundle(getArguments()).getAnimal();
+        mViewModel = ViewModelProviders.of(this,new SinglePlayerViewmodelFactory(animal)).get(SinglePlayerViewModel.class);
 
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         networkUtil=new NetworkUtil(getContext());

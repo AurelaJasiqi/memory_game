@@ -146,7 +146,7 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
                     <com.addisonelliott.segmentedbutton.SegmentedButtonGroup
-                        android:id="@+id/buttonGroup_lordOfTheRings"
+                        android:id="@+id/segmented_animal_btn"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
@@ -169,12 +169,14 @@
                         android:layout_width="100dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
+                            android:tag="dog"
                             app:drawable="@drawable/dog_yellow"
                         android:gravity="center" />
 
                         <com.addisonelliott.segmentedbutton.SegmentedButton
                         android:id="@+id/btn_cat"
                         android:layout_width="100dp"
+                            android:tag="butterfly"
                         android:layout_height="60dp"
                         android:layout_gravity="center"
                             app:drawable="@drawable/butterfly"
@@ -182,6 +184,7 @@
 
                         <com.addisonelliott.segmentedbutton.SegmentedButton
                         android:id="@+id/btn_panda"
+                            android:tag="panda"
                         android:layout_width="100dp"
                         android:layout_height="60dp"
                         android:layout_gravity="center"

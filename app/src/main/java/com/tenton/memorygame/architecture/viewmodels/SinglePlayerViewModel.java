@@ -1,5 +1,7 @@
 package com.tenton.memorygame.architecture.viewmodels;
 
+import android.app.Application;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -13,12 +15,12 @@ public class SinglePlayerViewModel extends ViewModel {
    public MutableLiveData<List<ImageResponse>> imageResponse;
 
     private ImagesRepository imagesRepository;
-public SinglePlayerViewModel(){
+public SinglePlayerViewModel( String param){
     if (imageResponse != null){
         return;
     }
     imagesRepository = ImagesRepository.getInstance();
-    imageResponse = imagesRepository.getResponse("cats",6);
+    imageResponse = imagesRepository.getResponse(param,6);
 
 }
     public void init(String text){

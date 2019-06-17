@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.viewmodels.StartGameViewModel;
@@ -24,8 +25,7 @@ public class StartGame extends Fragment {
 
     private StartGameViewModel mViewModel;
     private StartGameFragmentBinding binding;
-    //  private Action
-    // private Star action;
+    private String animal="dog";
 
     private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
     //CFAlertDialogBuilder
@@ -49,6 +49,12 @@ public class StartGame extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(StartGameViewModel.class);
         binding.setViewModel(mViewModel);
         navigateToSinglePlayer();
+        binding.segmentedAnimalBtn.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {
+            @Override
+            public void onPositionChanged(int position) {
+                animal=binding.segmentedAnimalBtn.getButton(position).getTag().toString();
+            }
+        });
 
     }
 
@@ -63,7 +69,7 @@ public class StartGame extends Fragment {
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        action = StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("easy");
+                        action = StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("easy",animal);
                         Navigation.findNavController(getView()).navigate(action);
                         dialog.dismiss();
                     }
@@ -72,7 +78,7 @@ public class StartGame extends Fragment {
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        action = StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("hard");
+                        action = StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("hard",animal);
                         Navigation.findNavController(getView()).navigate(action);
                         dialog.dismiss();
                     }
@@ -86,5 +92,7 @@ public class StartGame extends Fragment {
         });
 
     }
+
+
 
 }

@@ -26,5 +26,8 @@
         <action
             android:id="@+id/action_single_player_fragment_to_start_game_fragment"
             app:destination="@id/start_game_fragment" />
+        <argument
+            android:name="animal"
+            app:argType="string" />
     </fragment>
 </navigation>
