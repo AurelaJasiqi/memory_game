@@ -104,7 +104,6 @@ public void setAdapter() {
         if (level.equals("hard")) {
             adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, 170, 220);
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
-            binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
             binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(20),EqualSpacingItemDecoration.GRID));
             binding.recyclerView.setAdapter(adapter);
         }
