@@ -98,7 +98,7 @@ public void setAdapter() {
         if (level.equals("easy")) {
             adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, 220, 270);
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-          binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(20),EqualSpacingItemDecoration.GRID));
+          binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(16),EqualSpacingItemDecoration.GRID));
             binding.recyclerView.setAdapter(adapter);
         }
         if (level.equals("hard")) {

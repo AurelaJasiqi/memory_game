@@ -33,7 +33,6 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     List<ImageResponse> imageResponse;
     Context context;
 
-    //
     String photoId;
     int photoTag;
     Boolean isClicked = false;
@@ -59,7 +58,6 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull SinglePlayerAdapter.MyViewHolder holder, int position) {
-        //ketu ndryshojme gjithashtu edhe margjinat e fotove varesisht prej vlerave qe i kemi dhene gjate deklarimit te konstruktroit
         holder.cardView.getLayoutParams().height = height;
         holder.cardView.getLayoutParams().width = width;
 
