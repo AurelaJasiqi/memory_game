@@ -74,13 +74,14 @@ public class Single_Player extends Fragment {
             Toasty.info(getContext(), "No internet connection. \n Offline mode ON!", Toast.LENGTH_SHORT, true).show();
             addPhotos();
             sliceArray();
+            setAdapter();
             Collections.shuffle(imageResponse);
         }else {
             onLoad();
             mViewModel.init("chicken");
         }
 
-        setAdapter();
+
     }
 
     private void onLoad() {
@@ -88,6 +89,7 @@ public class Single_Player extends Fragment {
         mViewModel.imageResponse.observe(this, newResponse -> {
             imageResponse.addAll(newResponse);
             sliceArray();
+            setAdapter();
             Collections.shuffle(imageResponse);
             adapter.notifyDataSetChanged();
         });
@@ -102,7 +104,7 @@ public void setAdapter() {
             binding.recyclerView.setAdapter(adapter);
         }
         if (level.equals("hard")) {
-            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, dpToPx(70), dpToPx(95));
+            adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, dpToPx(65), dpToPx(90));
             binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
             binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(20),EqualSpacingItemDecoration.GRID));
             binding.recyclerView.setAdapter(adapter);
