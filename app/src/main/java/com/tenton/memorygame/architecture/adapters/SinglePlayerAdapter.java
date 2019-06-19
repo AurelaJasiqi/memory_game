@@ -207,7 +207,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
 
                                             holder.imageView.setImageResource(R.drawable.back_button);
                                                 imgv.setImageResource(R.drawable.back_button);
-                                    isClicked=false;
+                                            isClicked=false;
                                             oa2.setDuration(50);
                                             oa2.start();
 

@@ -67,7 +67,7 @@ public class Single_Player extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-animal=Single_PlayerArgs.fromBundle(getArguments()).getAnimal();
+        animal=Single_PlayerArgs.fromBundle(getArguments()).getAnimal();
         mViewModel = ViewModelProviders.of(this,new SinglePlayerViewmodelFactory(animal)).get(SinglePlayerViewModel.class);
 
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();

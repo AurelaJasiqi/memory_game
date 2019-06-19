@@ -37,7 +37,7 @@ public class ImagesRepository {
         api = ServiceFactory.getRetrofitInstance().create(Api.class);
     }
 
-    public MutableLiveData<List<ImageResponse>> getResponse(String text,int imgNum) {
+    public MutableLiveData<List<ImageResponse>> getResponse(String text) {
 
         responseDataMutableLiveData = new MutableLiveData<>();
         api.fetchImages(Constants.METHOD, Constants.API_KEY, Constants.FORMAT, Constants.NOJSONCALLBACK, text, Constants.EXTRAS)
@@ -48,19 +48,24 @@ public class ImagesRepository {
                             ResponseData responseData=response.body();
                             if(responseData != null){
                                List<Photo> photos=responseData.photos.photo;
+
                                selectedImages=new ArrayList<>();
                                if (photos !=null){
                                    for (int i=0;i<=photos.size()-1;i++){
                                        if (photos.get(i).url_o !=null ){
+                                           //Kontrollo nese response ka Url perpara se me add ne List
                                            selectedImages.add(photos.get(i));
                                        }
                                    }
                                }
+
                                if(selectedImages !=null  && selectedImages.size()>6) {
-                                    imageResponses=new ArrayList<>();
+                                   imageResponses=new ArrayList<>();
+
                                    imageResponses.add(new ImageResponse(selectedImages.get(0).url_o, 1, "p1id1"));
                                    imageResponses.add(new ImageResponse(selectedImages.get(1).url_o, 2, "p2id1"));
                                    imageResponses.add(new ImageResponse(selectedImages.get(2).url_o, 3, "p3id1"));
+
                                    imageResponses.add(new ImageResponse(selectedImages.get(0).url_o, 1, "p1id2"));
                                    imageResponses.add(new ImageResponse(selectedImages.get(1).url_o, 2, "p2id2"));
                                    imageResponses.add(new ImageResponse(selectedImages.get(2).url_o, 3, "p3id2"));

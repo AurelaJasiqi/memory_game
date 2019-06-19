@@ -4,6 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.tenton.memorygame.architecture.viewmodels.MultiPlayerViewModel" />
+
 
     </data>
 
@@ -25,7 +29,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraint_info"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="70dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -45,12 +49,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
+                        android:id="@+id/tv_firstPlayer_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="32dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="casual"
-                        android:text="Zgjim "
+                        android:text="Name "
                         android:textSize="20sp"
                         app:layout_constraintLeft_toLeftOf="@+id/tv_playerOne"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -65,17 +70,17 @@
                         android:text="P2: "
                         android:textColor="@color/yellow"
                         android:textSize="20sp"
-                        app:layout_constraintRight_toLeftOf="@+id/tv_points_player_two"
+                        app:layout_constraintRight_toLeftOf="@+id/tv_secondPlayer_name"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_points_player_two"
+                        android:id="@+id/tv_secondPlayer_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="32dp"
                         android:layout_marginTop="8dp"
                         android:fontFamily="casual"
-                        android:text="Aurela"
+                        android:text="Name"
                         android:textSize="20sp"
                         app:layout_constraintStart_toStartOf="@+id/tv_playerTwo"
                         app:layout_constraintTop_toTopOf="parent"
@@ -115,7 +120,7 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                    android:id="@+id/rv_multiPlayer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -134,8 +139,9 @@
                     android:layout_height="50dp"
                     android:layout_marginTop="30dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+                    app:layout_constraintTop_toBottomOf="@+id/rv_multiPlayer">
 
                     <Button
                         android:id="@+id/new_game"

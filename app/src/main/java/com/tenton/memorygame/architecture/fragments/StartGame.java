@@ -28,6 +28,9 @@ public class StartGame extends Fragment {
     private String animal="dog";
 
     private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
+
+
+
     //CFAlertDialogBuilder
     private CFAlertDialog.Builder builder;
 
@@ -49,6 +52,7 @@ public class StartGame extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(StartGameViewModel.class);
         binding.setViewModel(mViewModel);
         navigateToSinglePlayer();
+        navigateToMultiPlayer();
         binding.segmentedAnimalBtn.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {
             @Override
             public void onPositionChanged(int position) {
@@ -78,6 +82,7 @@ public class StartGame extends Fragment {
                 CFAlertDialog.CFAlertActionStyle.DEFAULT, CFAlertDialog.CFAlertActionAlignment.JUSTIFIED, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //Permes konstruktorit i dergojme afe_args
                         action = StartGameDirections.actionStartGameFragmentToSinglePlayerFragment("hard",animal);
                         Navigation.findNavController(getView()).navigate(action);
                         dialog.dismiss();
@@ -93,6 +98,15 @@ public class StartGame extends Fragment {
 
     }
 
+    private void navigateToMultiPlayer() {
+        binding.btnMultiPlayer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                Navigation.findNavController(getView()).navigate(StartGameDirections.actionStartGameFragmentToMultiPlayer(animal));
+            }
+        });
+
+    }
 
 }

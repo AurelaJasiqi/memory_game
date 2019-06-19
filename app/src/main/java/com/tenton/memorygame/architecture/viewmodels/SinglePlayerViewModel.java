@@ -15,12 +15,14 @@ public class SinglePlayerViewModel extends ViewModel {
    public MutableLiveData<List<ImageResponse>> imageResponse;
 
     private ImagesRepository imagesRepository;
-public SinglePlayerViewModel( String param){
-    if (imageResponse != null){
+
+    public SinglePlayerViewModel(String param) {
+    if (imageResponse != null) {
         return;
     }
+
     imagesRepository = ImagesRepository.getInstance();
-    imageResponse = imagesRepository.getResponse(param,6);
+    imageResponse = imagesRepository.getResponse(param);
 
 }
     public void init(String text){
@@ -28,7 +30,7 @@ public SinglePlayerViewModel( String param){
             return;
         }
         imagesRepository = ImagesRepository.getInstance();
-        imageResponse = imagesRepository.getResponse(text,6);
+        imageResponse = imagesRepository.getResponse(text);
 
     }
 

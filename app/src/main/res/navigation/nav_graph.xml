@@ -13,6 +13,9 @@
     <action
         android:id="@+id/action_start_game_fragment_to_single_player_fragment"
         app:destination="@id/single_player_fragment" />
+    <action
+        android:id="@+id/action_start_game_fragment_to_multiPlayer"
+        app:destination="@id/multiPlayer" />
 </fragment>
     <fragment
     android:name="com.tenton.memorygame.architecture.fragments.Single_Player"
@@ -28,6 +31,18 @@
             app:destination="@id/start_game_fragment" />
         <argument
             android:name="animal"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/multiPlayer"
+        android:name="com.tenton.memorygame.architecture.fragments.MultiPlayer"
+        android:label="multi_player_fragment"
+        tools:layout="@layout/multi_player_fragment" >
+        <action
+            android:id="@+id/action_multiPlayer_to_start_game_fragment"
+            app:destination="@id/start_game_fragment" />
+        <argument
+            android:name="animal_multiPlayer"
             app:argType="string" />
     </fragment>
 </navigation>
