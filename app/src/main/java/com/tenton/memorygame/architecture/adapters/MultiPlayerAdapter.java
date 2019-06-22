@@ -34,8 +34,6 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
     List<ImageResponse> imageResponseListLoader;
     Context context;
     Boolean isClicked = false;
-    int timesClicked=0;
-    CardView crv;
     ImageView imgv;
     String photoId;
     int photoTag;
@@ -84,8 +82,7 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                     isClicked=true;
                     photoId=imageResponseMultiPlayer.get(position).getImgId();
                     photoTag=imageResponseMultiPlayer.get(position).getTag();
-//                    imgv=holder.imageView;
-                    timesClicked=1;
+                    imgv=holder.imageView;
                 }else{
                     if(photoId == imageResponseMultiPlayer.get(position).getImgId() && photoTag == imageResponseMultiPlayer.get(position).getTag() ){
                         oa1.addListener(new AnimatorListenerAdapter() {
@@ -100,12 +97,35 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                             }
                         });
                         oa1.start();
-                        timesClicked=2;
-                        if(timesClicked == 2){
-                            holder.imageView.setClickable(false);
-                        }
                         isClicked=false;
-                        timesClicked = 0;
+                    }else if(photoId != imageResponseMultiPlayer.get(position).getImgId() && photoTag == imageResponseMultiPlayer.get(position).getTag()){
+                        oa1.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                if(imageResponseMultiPlayer.get(position).getImgUrl() != null){
+                                    oa3.start();
+                                }
+                                oa2.start();
+                            }
+                        });
+                        oa1.start();
+                        isClicked = false;
+                    }else{
+                        oa1.addListener(new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                if(imageResponseMultiPlayer.get(position).getImgUrl() != null){
+
+                                }
+                                oa2.start();
+                            }
+                        });
+                        oa1.start();
+                        imgv.setImageResource(R.drawable.back_button);
+                        holder.imageView.setImageResource(R.drawable.back_button);
+                        isClicked = false;
                     }
                 }
             }
