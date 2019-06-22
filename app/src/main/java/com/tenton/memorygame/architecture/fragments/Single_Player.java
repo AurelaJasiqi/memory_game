@@ -1,46 +1,40 @@
 package com.tenton.memorygame.architecture.fragments;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-
-import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
-import com.tenton.memorygame.architecture.api.Api;
-import com.tenton.memorygame.architecture.api.ServiceFactory;
 import com.tenton.memorygame.architecture.models.ImageResponse;
-import com.tenton.memorygame.architecture.models.ResponseData;
 import com.tenton.memorygame.architecture.viewmodels.SinglePlayerViewModel;
 import com.tenton.memorygame.architecture.viewmodelsfactory.SinglePlayerViewmodelFactory;
 import com.tenton.memorygame.databinding.SinglePlayerFragmentBinding;
-import com.tenton.memorygame.utilities.Constants;
 import com.tenton.memorygame.utilities.EqualSpacingItemDecoration;
 import com.tenton.memorygame.utilities.NetworkUtil;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import es.dmoral.toasty.Toasty;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 public class Single_Player extends Fragment {
 
     private SinglePlayerViewModel mViewModel;
@@ -50,8 +44,10 @@ public class Single_Player extends Fragment {
     private String animal;
     List<ImageResponse> imageResponse = new ArrayList<>();
     private NetworkUtil networkUtil;
-
-
+private Drawable dog;
+private Drawable sheep;
+private Drawable lion;
+private ImageView imgv;
     public static Single_Player newInstance() {
         return new Single_Player();
     }
@@ -89,11 +85,33 @@ public class Single_Player extends Fragment {
     private void onLoad() {
         binding.setMViewModel(mViewModel);
         mViewModel.imageResponse.observe(this, newResponse -> {
-            imageResponse.addAll(newResponse);
-            sliceArray();
-            setAdapter();
-            Collections.shuffle(imageResponse);
-            adapter.notifyDataSetChanged();
+            String url=newResponse.get(0).getImgUrl();
+            Glide.with(getContext())
+                    .load(url)
+                    .listener(new RequestListener< Drawable>() {
+                        @Override
+                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                            imageResponse.addAll(newResponse);
+                            sliceArray();
+                            setAdapter();
+                            Collections.shuffle(imageResponse);
+                            adapter.notifyDataSetChanged();
+                            return false;
+                        }
+
+
+
+                    })
+                    .into(binding.loadImg);
+
+
+
+
         });
     }
 
