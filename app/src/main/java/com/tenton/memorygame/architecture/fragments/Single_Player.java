@@ -2,8 +2,6 @@ package com.tenton.memorygame.architecture.fragments;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -15,14 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
 import com.tenton.memorygame.architecture.models.ImageResponse;
@@ -44,10 +37,7 @@ public class Single_Player extends Fragment {
     private String animal;
     List<ImageResponse> imageResponse = new ArrayList<>();
     private NetworkUtil networkUtil;
-private Drawable dog;
-private Drawable sheep;
-private Drawable lion;
-private ImageView imgv;
+private Picasso picasso;
     public static Single_Player newInstance() {
         return new Single_Player();
     }
@@ -65,6 +55,9 @@ private ImageView imgv;
         super.onActivityCreated(savedInstanceState);
         animal=Single_PlayerArgs.fromBundle(getArguments()).getAnimal();
         mViewModel = ViewModelProviders.of(this,new SinglePlayerViewmodelFactory(animal)).get(SinglePlayerViewModel.class);
+picasso=Picasso.get();
+        picasso.setIndicatorsEnabled(true);
+        picasso.setLoggingEnabled(true);
 
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         networkUtil=new NetworkUtil(getContext());
@@ -86,33 +79,104 @@ private ImageView imgv;
         binding.setMViewModel(mViewModel);
         mViewModel.imageResponse.observe(this, newResponse -> {
             String url=newResponse.get(0).getImgUrl();
-            Glide.with(getContext())
-                    .load(url)
-                    .listener(new RequestListener< Drawable>() {
+//1
+            binding.loadImg.setImageDrawable(getResources().getDrawable(R.drawable.dog_icon));
+            picasso.load(newResponse.get(0).getImgUrl()).placeholder(R.drawable.dog_icon).fetch(new Callback() {
+                @Override
+                public void onSuccess() {
+                    binding.loadImg.setImageDrawable(getResources().getDrawable(R.drawable.dog_icon));
+                    picasso.load(newResponse.get(0).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
+                    //2
+                    Picasso.get().load(newResponse.get(1).getImgUrl()).fetch(new Callback() {
                         @Override
-                        public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
-                            return false;
+                        public void onSuccess() {
+                            picasso.load(newResponse.get(1).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
+                            //3
+                            picasso.load(newResponse.get(2).getImgUrl()).fetch(new Callback() {
+                                @Override
+                                public void onSuccess() {
+                                    picasso.load(newResponse.get(2).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
+                                    //4
+                                    picasso.load(newResponse.get(6).getImgUrl()).fetch(new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                            picasso.load(newResponse.get(6).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
+                                            //5
+                                            picasso.load(newResponse.get(7).getImgUrl()).fetch(new Callback() {
+                                                @Override
+                                                public void onSuccess() {
+                                                    picasso.load(newResponse.get(7).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
+                                                    //6
+                                                    picasso.load(newResponse.get(8).getImgUrl()).fetch(new Callback() {
+                                                        @Override
+                                                        public void onSuccess() {
+                                                            Picasso.get().load(newResponse.get(8).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
+                                                            imageResponse.addAll(newResponse);
+                                                            sliceArray();
+                                                            setAdapter();
+                                                            Collections.shuffle(imageResponse);
+                                                            adapter.notifyDataSetChanged();
+                                                        }
+
+                                                        @Override
+                                                        public void onError(Exception e) {
+
+                                                        }
+
+                                                    });
+
+                                                }
+
+                                                @Override
+                                                public void onError(Exception e) {
+
+                                                }
+
+                                            });
+
+                                        }
+
+                                        @Override
+                                        public void onError(Exception e) {
+
+                                        }
+
+                                    });
+
+                                }
+
+                                @Override
+                                public void onError(Exception e) {
+
+                                }
+
+                            });
+
                         }
 
                         @Override
-                        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
-                            imageResponse.addAll(newResponse);
-                            sliceArray();
-                            setAdapter();
-                            Collections.shuffle(imageResponse);
-                            adapter.notifyDataSetChanged();
-                            return false;
+                        public void onError(Exception e) {
+
                         }
 
+                    });
+
+                }
+
+                @Override
+                public void onError(Exception e) {
+
+                }
+
+            });
 
 
-                    })
-                    .into(binding.loadImg);
 
 
 
 
         });
+
     }
 
 public void setAdapter() {
