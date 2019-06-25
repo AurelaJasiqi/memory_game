@@ -63,9 +63,9 @@ Picasso picasso;
     public void onBindViewHolder(@NonNull SinglePlayerAdapter.MyViewHolder holder, int position) {
         holder.cardView.getLayoutParams().height = height;
         holder.cardView.getLayoutParams().width = width;
-picasso=Picasso.get();
-picasso.setIndicatorsEnabled(true);
-picasso.setLoggingEnabled(true);
+        picasso=Picasso.get();
+        picasso.setIndicatorsEnabled(true);
+        picasso.setLoggingEnabled(true);
 
         //Flip Animation
         final ObjectAnimator oa1 = ObjectAnimator.ofFloat(holder.cardView, "scaleX", 1f, 0f);

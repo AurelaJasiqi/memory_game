@@ -9,7 +9,7 @@ public class Constants {
     public static final  String TEXT_DOGS="dogs";
     public static final  String TEXT_BUTTERFLY="butterfly";
     public static final  String TEXT_PANDA="panda";
-    public static final  String EXTRAS="url_o";
+    public static final  String EXTRAS="url_s";
 
 
 

@@ -46,6 +46,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
 
+    implementation 'androidx.annotation:annotation:1.0.0'
+    annotationProcessor 'androidx.annotation:annotation:1.0.0'
+
     //segmentedButtons
     // implementation 'com.github.addisonElliott:RippleDrawable:3.2.1'
     // implementation 'com.github.addisonElliott:RippleDrawable:3.0.0'
@@ -60,6 +63,7 @@ dependencies {
     //Image Loader
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+    implementation 'com.github.bumptech.glide:annotations:4.9.0'
 
     //Toasty
     implementation 'com.github.GrenderG:Toasty:1.4.2'

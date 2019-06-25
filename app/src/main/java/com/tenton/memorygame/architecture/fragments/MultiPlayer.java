@@ -91,13 +91,9 @@ public class MultiPlayer extends Fragment {
         mViewModel.multiPlayerListDataResponse.observe(this, newResponse -> {
 
             for (int i = 0; i < newResponse.size(); i++) {
-
                 ImageResponse object = newResponse.get(i);
-
                 GlideApp.with(this.getContext()).load(object.getImgUrl()).preload();
-
             }
-
             imageResponseMultiPlayer.addAll(newResponse);
             setAdapter();
             Collections.shuffle(imageResponseMultiPlayer);

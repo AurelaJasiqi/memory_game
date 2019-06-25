@@ -4,29 +4,35 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.tenton.memorygame.R;
+import com.tenton.memorygame.architecture.GlideApp;
 import com.tenton.memorygame.architecture.models.ImageResponse;
-import com.tenton.memorygame.architecture.viewmodels.MultiPlayerViewModel;
 
-import java.net.UnknownHostException;
 import java.util.List;
 
 public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.MultiPlayerViewHolder> {
@@ -37,13 +43,14 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
     ImageView imgv;
     String photoId;
     int photoTag;
+    CardView crv;
+    CountDownTimer countDownTimer;
 
 
-    public MultiPlayerAdapter(List<ImageResponse> imageResponseMultiPlayer, Context context){
-        this.imageResponseMultiPlayer=imageResponseMultiPlayer;
-        this.context=context;
+    public MultiPlayerAdapter(List<ImageResponse> imageResponseMultiPlayer, Context context) {
+        this.imageResponseMultiPlayer = imageResponseMultiPlayer;
+        this.context = context;
     }
-    //Collections.shuffle(imageResponse);
 
     @NonNull
     @Override
@@ -70,69 +77,74 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         super.onAnimationEnd(animation);
-                        if(imageResponseMultiPlayer.get(position).getImgUrl() != null){
-                            Glide.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
-                        }
+
+                        GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
                         oa2.start();
                     }
                 });
                 oa1.start();
 
-                if(!isClicked){
-                    isClicked=true;
-                    photoId=imageResponseMultiPlayer.get(position).getImgId();
-                    photoTag=imageResponseMultiPlayer.get(position).getTag();
-                    imgv=holder.imageView;
-                }else{
-                    if(photoId == imageResponseMultiPlayer.get(position).getImgId() && photoTag == imageResponseMultiPlayer.get(position).getTag() ){
-                        oa1.addListener(new AnimatorListenerAdapter() {
+                if (isClicked == false) {
+                    isClicked = true;
+                    photoId = imageResponseMultiPlayer.get(position).getImgId();
+                    photoTag = imageResponseMultiPlayer.get(position).getTag();
+                    imgv = holder.imageView;
+                    crv = holder.cardView;
+                } else {
+                    if (photoId != imageResponseMultiPlayer.get(position).getImgId() && photoTag ==
+                            imageResponseMultiPlayer.get(position).getTag()) {
+                       countDownTimer = new CountDownTimer(500, 150) {
                             @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                if(imageResponseMultiPlayer.get(position).getImgUrl() != null){
-                                   holder.imageView.setImageResource(R.drawable.back_button);
+                            public void onTick(long millisUntilFinished) {
+                                if (imageResponseMultiPlayer.get(position).getImgUrl() != null) {
+                                    GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).dontAnimate().into(holder.imageView);
+                                }
+                            }
 
-                                }
-                                oa2.start();
-                            }
-                        });
-                        oa1.start();
-                        isClicked=false;
-                    }else if(photoId != imageResponseMultiPlayer.get(position).getImgId() && photoTag == imageResponseMultiPlayer.get(position).getTag()){
-                        oa1.addListener(new AnimatorListenerAdapter() {
                             @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                if(imageResponseMultiPlayer.get(position).getImgUrl() != null){
-                                    oa3.start();
-                                }
-                                oa2.start();
+                            public void onFinish() {
+                                crv.setVisibility(View.INVISIBLE);
+                                v.setVisibility(View.INVISIBLE);
+                                isClicked = false;
                             }
-                        });
-                        oa1.start();
-                        isClicked = false;
-                    }else{
-                        oa1.addListener(new AnimatorListenerAdapter() {
-                            @Override
-                            public void onAnimationEnd(Animator animation) {
-                                super.onAnimationEnd(animation);
-                                if(imageResponseMultiPlayer.get(position).getImgUrl() != null){
+                        }.start();
 
-                                }
-                                oa2.start();
+                    } else if (photoId == imageResponseMultiPlayer.get(position).getImgId() && photoTag ==
+                            imageResponseMultiPlayer.get(position).getTag()) {
+
+                        countDownTimer = new CountDownTimer(500, 150) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
                             }
-                        });
-                        oa1.start();
-                        imgv.setImageResource(R.drawable.back_button);
-                        holder.imageView.setImageResource(R.drawable.back_button);
-                        isClicked = false;
+
+                            @Override
+                            public void onFinish() {
+                                holder.imageView.setImageResource(R.drawable.back_button);
+                                isClicked = false;
+                            }
+                        }.start();
+
+                    } else {
+
+                        new CountDownTimer(500, 150) {
+                            @Override
+                            public void onTick(long millisUntilFinished) {
+                                GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
+                            }
+
+                            @Override
+                            public void onFinish() {
+                                holder.imageView.setImageResource(R.drawable.back_button);
+                                imgv.setImageResource(R.drawable.back_button);
+                                isClicked = false;
+                            }
+                        }.start();
+
                     }
                 }
             }
-
         });
-
-
     }
 
     @Override
@@ -148,8 +160,10 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
             super(itemView);
             cardView = itemView.findViewById(R.id.cardview_id);
             imageView = itemView.findViewById(R.id.img_id);
+
+            }
         }
     }
-}
+
 
 

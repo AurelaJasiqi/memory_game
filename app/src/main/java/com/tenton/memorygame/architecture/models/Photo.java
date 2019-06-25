@@ -30,8 +30,8 @@ public class Photo {
     @SerializedName("isfamily")
     public String isfamily = null;
 
-    @SerializedName("url_o")
-    public String url_o = null;
+    @SerializedName("url_s")
+    public String url_s = null;
 
     @SerializedName("height_o")
     public String height_o = null;

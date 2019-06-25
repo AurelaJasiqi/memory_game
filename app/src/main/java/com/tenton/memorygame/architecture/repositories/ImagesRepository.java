@@ -1,7 +1,5 @@
 package com.tenton.memorygame.architecture.repositories;
 
-import android.widget.Toast;
-
 import androidx.lifecycle.MutableLiveData;
 
 import com.tenton.memorygame.architecture.api.Api;
@@ -52,7 +50,7 @@ public class ImagesRepository {
                                selectedImages=new ArrayList<>();
                                if (photos !=null){
                                    for (int i=0;i<=photos.size()-1;i++){
-                                       if (photos.get(i).url_o !=null ){
+                                       if (photos.get(i).url_s !=null ){
                                            //Kontrollo nese response ka Url perpara se me add ne List
                                            selectedImages.add(photos.get(i));
                                        }
@@ -62,22 +60,22 @@ public class ImagesRepository {
                                if(selectedImages !=null  && selectedImages.size()>6) {
                                    imageResponses=new ArrayList<>();
 
-                                   imageResponses.add(new ImageResponse(selectedImages.get(0).url_o, 1, "p1id1"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(1).url_o, 2, "p2id1"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(2).url_o, 3, "p3id1"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(0).url_s, 1, "p1id1"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(1).url_s, 2, "p2id1"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(2).url_s, 3, "p3id1"));
 
-                                   imageResponses.add(new ImageResponse(selectedImages.get(0).url_o, 1, "p1id2"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(1).url_o, 2, "p2id2"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(2).url_o, 3, "p3id2"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(0).url_s, 1, "p1id2"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(1).url_s, 2, "p2id2"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(2).url_s, 3, "p3id2"));
 
-                                   imageResponses.add(new ImageResponse(selectedImages.get(3).url_o, 4, "p4id1"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(4).url_o, 5, "p5id1"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(5).url_o, 6, "p6id1"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(3).url_s, 4, "p4id1"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(4).url_s, 5, "p5id1"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(5).url_s, 6, "p6id1"));
 
 
-                                   imageResponses.add(new ImageResponse(selectedImages.get(3).url_o, 4, "p4id2"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(4).url_o, 5, "p5id2"));
-                                   imageResponses.add(new ImageResponse(selectedImages.get(5).url_o, 6, "p6id2"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(3).url_s, 4, "p4id2"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(4).url_s, 5, "p5id2"));
+                                   imageResponses.add(new ImageResponse(selectedImages.get(5).url_s, 6, "p6id2"));
 
                                    responseDataMutableLiveData.setValue(imageResponses);
                                }
