@@ -78,105 +78,15 @@ picasso=Picasso.get();
     private void onLoad() {
         binding.setMViewModel(mViewModel);
         mViewModel.imageResponse.observe(this, newResponse -> {
-            String url=newResponse.get(0).getImgUrl();
-//1
-            binding.loadImg.setImageDrawable(getResources().getDrawable(R.drawable.dog_icon));
-            picasso.load(newResponse.get(0).getImgUrl()).placeholder(R.drawable.dog_icon).fetch(new Callback() {
-                @Override
-                public void onSuccess() {
-                    binding.loadImg.setImageDrawable(getResources().getDrawable(R.drawable.dog_icon));
-                    picasso.load(newResponse.get(0).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
-                    //2
-                    Picasso.get().load(newResponse.get(1).getImgUrl()).fetch(new Callback() {
-                        @Override
-                        public void onSuccess() {
-                            picasso.load(newResponse.get(1).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
-                            //3
-                            picasso.load(newResponse.get(2).getImgUrl()).fetch(new Callback() {
-                                @Override
-                                public void onSuccess() {
-                                    picasso.load(newResponse.get(2).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
-                                    //4
-                                    picasso.load(newResponse.get(6).getImgUrl()).fetch(new Callback() {
-                                        @Override
-                                        public void onSuccess() {
-                                            picasso.load(newResponse.get(6).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
-                                            //5
-                                            picasso.load(newResponse.get(7).getImgUrl()).fetch(new Callback() {
-                                                @Override
-                                                public void onSuccess() {
-                                                    picasso.load(newResponse.get(7).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
-                                                    //6
-                                                    picasso.load(newResponse.get(8).getImgUrl()).fetch(new Callback() {
-                                                        @Override
-                                                        public void onSuccess() {
-                                                            Picasso.get().load(newResponse.get(8).getImgUrl()).networkPolicy(NetworkPolicy.OFFLINE).into(binding.loadImg);
-                                                            imageResponse.addAll(newResponse);
-                                                            sliceArray();
-                                                            setAdapter();
-                                                            Collections.shuffle(imageResponse);
-                                                            adapter.notifyDataSetChanged();
-                                                        }
 
-                                                        @Override
-                                                        public void onError(Exception e) {
-
-                                                        }
-
-                                                    });
-
-                                                }
-
-                                                @Override
-                                                public void onError(Exception e) {
-
-                                                }
-
-                                            });
-
-                                        }
-
-                                        @Override
-                                        public void onError(Exception e) {
-
-                                        }
-
-                                    });
-
-                                }
-
-                                @Override
-                                public void onError(Exception e) {
-
-                                }
-
-                            });
-
-                        }
-
-                        @Override
-                        public void onError(Exception e) {
-
-                        }
-
-                    });
-
-                }
-
-                @Override
-                public void onError(Exception e) {
-
-                }
-
-            });
-
-
-
-
+            imageResponse.addAll(newResponse);
+            sliceArray();
+            setAdapter();
+            Collections.shuffle(imageResponse);
+            adapter.notifyDataSetChanged();
 
 
         });
-
     }
 
 public void setAdapter() {
