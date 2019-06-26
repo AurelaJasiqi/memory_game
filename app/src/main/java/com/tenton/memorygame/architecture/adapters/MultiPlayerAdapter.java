@@ -71,18 +71,18 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                oa1.setInterpolator(new DecelerateInterpolator());
-                oa2.setInterpolator(new AccelerateDecelerateInterpolator());
-                oa1.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
 
-                        GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
-                        oa2.start();
+                holder.cardView.animate().withLayer().rotationY(90).setDuration(50).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (imageResponseMultiPlayer.get(position).getImgUrl() != null) {
+                            GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
+                        } else {
+                            holder.imageView.setImageResource(imageResponseMultiPlayer.get(position).getSource());
+                        }
+                        holder.cardView.animate().withLayer().rotationY(0).setDuration(50).start();
                     }
                 });
-                oa1.start();
 
                 if (isClicked == false) {
                     isClicked = true;
@@ -96,9 +96,6 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                        countDownTimer = new CountDownTimer(500, 150) {
                             @Override
                             public void onTick(long millisUntilFinished) {
-                                if (imageResponseMultiPlayer.get(position).getImgUrl() != null) {
-                                    GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).dontAnimate().into(holder.imageView);
-                                }
                             }
 
                             @Override
@@ -115,12 +112,18 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                         countDownTimer = new CountDownTimer(500, 150) {
                             @Override
                             public void onTick(long millisUntilFinished) {
-                                GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
                             }
 
                             @Override
                             public void onFinish() {
-                                holder.imageView.setImageResource(R.drawable.back_button);
+                                holder.cardView.animate().withLayer().rotationY(90).setDuration(150).withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        holder.imageView.setImageResource(R.drawable.back_button);
+                                        holder.cardView.animate().withLayer().rotationY(0).setDuration(50).start();
+
+                                    }
+                                });
                                 isClicked = false;
                             }
                         }.start();
@@ -130,13 +133,18 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                         new CountDownTimer(500, 150) {
                             @Override
                             public void onTick(long millisUntilFinished) {
-                                GlideApp.with(context).load(imageResponseMultiPlayer.get(position).getImgUrl()).into(holder.imageView);
                             }
 
                             @Override
                             public void onFinish() {
-                                holder.imageView.setImageResource(R.drawable.back_button);
-                                imgv.setImageResource(R.drawable.back_button);
+                                holder.cardView.animate().withLayer().rotationY(90).setDuration(150).withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        holder.imageView.setImageResource(R.drawable.back_button);
+                                        imgv.setImageResource(R.drawable.back_button);
+                                        holder.cardView.animate().withLayer().rotationY(0).setDuration(50).start();
+                                    }
+                                });
                                 isClicked = false;
                             }
                         }.start();

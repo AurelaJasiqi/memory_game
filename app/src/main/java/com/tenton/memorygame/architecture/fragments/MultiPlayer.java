@@ -36,11 +36,14 @@ import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.viewmodelsfactory.MultiPlayerViewmodelFactory;
 import com.tenton.memorygame.databinding.MultiPlayerFragmentBinding;
 import com.tenton.memorygame.utilities.EqualSpacingItemDecoration;
+import com.tenton.memorygame.utilities.NetworkUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import es.dmoral.toasty.Toasty;
 
 public class MultiPlayer extends Fragment {
 
@@ -49,6 +52,7 @@ public class MultiPlayer extends Fragment {
     private String animal;
     private MultiPlayerAdapter adapterMultiPlayer;
     private CountDownTimer countDownTimer;
+    private NetworkUtil networkUtil;
 
 
     List<ImageResponse> imageResponseMultiPlayer = new ArrayList<>();
@@ -71,9 +75,7 @@ public class MultiPlayer extends Fragment {
         animal=MultiPlayerArgs.fromBundle(getArguments()).getAnimalMultiPlayer();
         mViewModel = ViewModelProviders.of(this, new MultiPlayerViewmodelFactory(animal)).get(MultiPlayerViewModel.class);
         binding.setViewModel(mViewModel);
-        onLoad();
-
-        countDownTimer = new CountDownTimer(30000, 1000) {
+        countDownTimer = new CountDownTimer(60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 Long timeInSeconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
@@ -84,19 +86,26 @@ public class MultiPlayer extends Fragment {
             public void onFinish() {
                 Toast.makeText(getContext(),"Your time is over!",Toast.LENGTH_LONG).show();
             }
-        }.start();
+        };
+
+        networkUtil=new NetworkUtil(getContext());
+        if(!networkUtil.isConnected()){
+            Toasty.info(getContext(), "No internet connection. \n Offline mode ON!", Toast.LENGTH_SHORT, true).show();
+            addPhotos();
+            setAdapter();
+            Collections.shuffle(imageResponseMultiPlayer);
+            countDownTimer.start();
+        }else {
+            onLoad();
+        }
     }
 
     private void onLoad(){
         mViewModel.multiPlayerListDataResponse.observe(this, newResponse -> {
-
-            for (int i = 0; i < newResponse.size(); i++) {
-                ImageResponse object = newResponse.get(i);
-                GlideApp.with(this.getContext()).load(object.getImgUrl()).preload();
-            }
             imageResponseMultiPlayer.addAll(newResponse);
             setAdapter();
             Collections.shuffle(imageResponseMultiPlayer);
+            countDownTimer.start();
         });
     }
 
@@ -107,24 +116,23 @@ public class MultiPlayer extends Fragment {
         binding.rvMultiPlayer.setAdapter(adapterMultiPlayer);
             }
 
-//    public void addPhotos(){
-//        imageResponse.add(new ImageResponse( 1, "p1id1",R.drawable.dog_icon));
-//        imageResponse.add(new ImageResponse( 2, "p2id1",R.drawable.sheep_icon));
-//        imageResponse.add(new ImageResponse( 3, "p3id1",R.drawable.lion_icon));
-//
-//        imageResponse.add(new ImageResponse( 1, "p1id2",R.drawable.dog_icon));
-//        imageResponse.add(new ImageResponse( 2, "p2id2",R.drawable.sheep_icon));
-//        imageResponse.add(new ImageResponse( 3, "p3id2",R.drawable.lion_icon));
-//
-//        imageResponse.add(new ImageResponse( 4, "p4id1",R.drawable.chicken_icon));
-//        imageResponse.add(new ImageResponse( 5, "p5id1",R.drawable.cow_icon));
-//        imageResponse.add(new ImageResponse( 6, "p6id1",R.drawable.bunny_icon));
-//
-//
-//        imageResponse.add(new ImageResponse( 4, "p4id2",R.drawable.chicken_icon));
-//        imageResponse.add(new ImageResponse( 5, "p5id2",R.drawable.cow_icon));
-//        imageResponse.add(new ImageResponse( 6, "p6id2",R.drawable.bunny_icon));
-//    }
+    public void addPhotos(){
+        imageResponseMultiPlayer.add(new ImageResponse( 1, "p1id1",R.drawable.dog_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 2, "p2id1",R.drawable.sheep_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 3, "p3id1",R.drawable.lion_icon));
+
+        imageResponseMultiPlayer.add(new ImageResponse( 1, "p1id2",R.drawable.dog_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 2, "p2id2",R.drawable.sheep_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 3, "p3id2",R.drawable.lion_icon));
+
+        imageResponseMultiPlayer.add(new ImageResponse( 4, "p4id1",R.drawable.chicken_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 5, "p5id1",R.drawable.cow_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 6, "p6id1",R.drawable.bunny_icon));
+
+        imageResponseMultiPlayer.add(new ImageResponse( 4, "p4id2",R.drawable.chicken_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 5, "p5id2",R.drawable.cow_icon));
+        imageResponseMultiPlayer.add(new ImageResponse( 6, "p6id2",R.drawable.bunny_icon));
+    }
 
     public int  dpToPx(int dp) {
         return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
