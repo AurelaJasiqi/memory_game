@@ -1,34 +1,19 @@
 package com.tenton.memorygame.architecture.fragments;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
 import com.tenton.memorygame.architecture.adapters.MultiPlayerAdapter;
-import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
 import com.tenton.memorygame.architecture.models.ImageResponse;
 import com.tenton.memorygame.architecture.viewmodels.MultiPlayerViewModel;
 import com.tenton.memorygame.R;
@@ -53,7 +38,7 @@ public class MultiPlayer extends Fragment {
     private MultiPlayerAdapter adapterMultiPlayer;
     private CountDownTimer countDownTimer;
     private NetworkUtil networkUtil;
-
+    private Fragment frg = null;
 
     List<ImageResponse> imageResponseMultiPlayer = new ArrayList<>();
 
@@ -75,18 +60,9 @@ public class MultiPlayer extends Fragment {
         animal=MultiPlayerArgs.fromBundle(getArguments()).getAnimalMultiPlayer();
         mViewModel = ViewModelProviders.of(this, new MultiPlayerViewmodelFactory(animal)).get(MultiPlayerViewModel.class);
         binding.setViewModel(mViewModel);
-        countDownTimer = new CountDownTimer(3000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                Long timeInSeconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
-                binding.tvTimer.setText(timeInSeconds.toString());
-            }
+       mViewModel.setUpTimer();
 
-            @Override
-            public void onFinish() {
-                SweetAlertDialogWarning();
-            }
-        };
+
 
         networkUtil=new NetworkUtil(getContext());
         if(!networkUtil.isConnected()){
@@ -94,10 +70,12 @@ public class MultiPlayer extends Fragment {
             addPhotos();
             setAdapter();
             Collections.shuffle(imageResponseMultiPlayer);
-            countDownTimer.start();
+            onLoadTimer();
+            mViewModel.startTimer();
         }else {
             onLoad();
         }
+
     }
 
     private void onLoad(){
@@ -105,8 +83,10 @@ public class MultiPlayer extends Fragment {
             imageResponseMultiPlayer.addAll(newResponse);
             setAdapter();
             Collections.shuffle(imageResponseMultiPlayer);
-            countDownTimer.start();
+            mViewModel.startTimer();
         });
+
+        onLoadTimer();
     }
 
     public void setAdapter() {
@@ -147,16 +127,27 @@ public class MultiPlayer extends Fragment {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
+                       Toast.makeText(getContext(),"Try again pressed!",Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
-                        getActivity().finish();
+                        getActivity().onBackPressed();
                     }
                 })
                 .show();
+    }
+
+    public void onLoadTimer(){
+        mViewModel.timeUntilFinished.observe(this,timeLeft ->{
+            binding.tvTime.setVisibility(View.VISIBLE);
+            binding.tvTimer.setText(timeLeft.toString());
+        });
+        mViewModel.gameOver.observe(this,gameOver ->{
+            SweetAlertDialogWarning();
+        });
     }
 
         }
