@@ -27,7 +27,6 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
-import com.tenton.memorygame.architecture.GlideApp;
 import com.tenton.memorygame.architecture.adapters.MultiPlayerAdapter;
 import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
 import com.tenton.memorygame.architecture.models.ImageResponse;
@@ -43,6 +42,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import es.dmoral.toasty.Toasty;
 
 public class MultiPlayer extends Fragment {
@@ -75,7 +75,7 @@ public class MultiPlayer extends Fragment {
         animal=MultiPlayerArgs.fromBundle(getArguments()).getAnimalMultiPlayer();
         mViewModel = ViewModelProviders.of(this, new MultiPlayerViewmodelFactory(animal)).get(MultiPlayerViewModel.class);
         binding.setViewModel(mViewModel);
-        countDownTimer = new CountDownTimer(60000, 1000) {
+        countDownTimer = new CountDownTimer(3000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 Long timeInSeconds = TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished);
@@ -84,7 +84,7 @@ public class MultiPlayer extends Fragment {
 
             @Override
             public void onFinish() {
-                Toast.makeText(getContext(),"Your time is over!",Toast.LENGTH_LONG).show();
+                SweetAlertDialogWarning();
             }
         };
 
@@ -137,6 +137,28 @@ public class MultiPlayer extends Fragment {
     public int  dpToPx(int dp) {
         return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
     }
+
+    public void SweetAlertDialogWarning(){
+        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Your time is over!")
+                .setContentText("We think that you're a good player, try again!")
+                .setConfirmText("Yes, try again!")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                    }
+                })
+                .setCancelButton("Cancel", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        getActivity().finish();
+                    }
+                })
+                .show();
+    }
+
         }
 
 

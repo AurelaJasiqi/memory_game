@@ -1,4 +1,4 @@
-package com.tenton.memorygame.architecture;
+package com.tenton.memorygame.Modules;
 
 import com.bumptech.glide.module.AppGlideModule;
 

@@ -29,8 +29,8 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
+import com.tenton.memorygame.Modules.GlideApp;
 import com.tenton.memorygame.R;
-import com.tenton.memorygame.architecture.GlideApp;
 import com.tenton.memorygame.architecture.models.ImageResponse;
 
 import java.util.List;
@@ -65,9 +65,6 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
     @Override
     public void onBindViewHolder(@NonNull MultiPlayerViewHolder holder, int position) {
 
-        final ObjectAnimator oa1 = ObjectAnimator.ofFloat(holder.cardView, "scaleX", 1f, 0f);
-        final ObjectAnimator oa2 = ObjectAnimator.ofFloat(holder.cardView, "scaleX", 0f, 1f);
-        final ObjectAnimator oa3 = ObjectAnimator.ofFloat(holder.cardView, "scaleX", 0f, 0f);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

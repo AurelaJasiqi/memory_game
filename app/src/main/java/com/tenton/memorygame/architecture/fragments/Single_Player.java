@@ -17,7 +17,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 import com.tenton.memorygame.R;
-import com.tenton.memorygame.architecture.GlideApp;
 import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
 import com.tenton.memorygame.architecture.models.ImageResponse;
 import com.tenton.memorygame.architecture.viewmodels.SinglePlayerViewModel;

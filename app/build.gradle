@@ -77,6 +77,9 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    //Sweet Alert Dialog
+    implementation 'com.github.f0ris.sweetalert:library:1.6.2'
+
 
 }
 repositories {
