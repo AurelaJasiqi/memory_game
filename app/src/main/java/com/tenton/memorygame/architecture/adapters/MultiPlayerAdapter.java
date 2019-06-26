@@ -79,6 +79,7 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                     imgv = holder.imageView;
                     crv = holder.cardView;
                 } else {
+
                     if (photoId != imageResponseMultiPlayer.get(position).getImgId() && photoTag ==
                             imageResponseMultiPlayer.get(position).getTag()) {
                        countDownTimer = new CountDownTimer(800, 200) {
@@ -93,12 +94,14 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                                 isClicked = false;
                             }
                         }.start();
+
                        if(playerOneTurn == true && playerTwoTurn == false){
                             p1Points++;
                        }else if(playerOneTurn == false && playerTwoTurn == true){
                            p2Points++;
                        }
-                        listener.onPointsChanged(p1Points,p2Points);
+
+                       listener.onPointsChanged(p1Points,p2Points);
                         playerTurn();
 
                     } else if (photoId == imageResponseMultiPlayer.get(position).getImgId() && photoTag ==

@@ -24,7 +24,7 @@ public class MultiPlayerViewModel extends ViewModel implements MultiPlayerAdapte
     public MutableLiveData<Integer> p2PointsLive = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> turnLive =new MutableLiveData<>();
-    
+
 
     //Pasi ne ViewModel do e bejme Api Callin, athere metoda qe e kemi shkruar ne ImageRepo ka nevoj per nje parameter,
     // te cilin do e marrim nga fragmenti permes konstruktorit te ViewModelit
