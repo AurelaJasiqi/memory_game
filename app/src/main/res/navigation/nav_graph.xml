@@ -32,6 +32,10 @@
         <argument
             android:name="animal"
             app:argType="string" />
+        <action
+            android:id="@+id/action_single_player_fragment_self"
+            app:destination="@id/single_player_fragment"
+            app:popUpTo="@+id/start_game_fragment" />
     </fragment>
     <fragment
         android:id="@+id/multiPlayer"

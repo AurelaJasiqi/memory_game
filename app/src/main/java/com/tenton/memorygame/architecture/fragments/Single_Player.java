@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class Single_Player extends Fragment  {
     private int maxPoints;
     SweetAlertDialog sweetAlertDialog;
     private String leftTime;
+    private Single_PlayerDirections.ActionSinglePlayerFragmentSelf action;
 
     public static Single_Player newInstance() {
         return new Single_Player();
@@ -120,7 +122,11 @@ public class Single_Player extends Fragment  {
             sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    Toasty.warning(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+                    sweetAlertDialog.dismissWithAnimation();
+                    action = Single_PlayerDirections.actionSinglePlayerFragmentSelf(level,animal);
+                    Navigation.findNavController(getView()).navigate(action);
+
+                    sweetAlertDialog.dismissWithAnimation();
                 }
             });
             sweetAlertDialog.show();
@@ -136,13 +142,17 @@ public class Single_Player extends Fragment  {
           sweetAlertDialog.setConfirmButton("Restart Game", new SweetAlertDialog.OnSweetClickListener() {
               @Override
               public void onClick(SweetAlertDialog sweetAlertDialog) {
-                  Toasty.success(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+                  sweetAlertDialog.dismissWithAnimation();
               }
           });
           sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
               @Override
               public void onClick(SweetAlertDialog sweetAlertDialog) {
-                  Toasty.warning(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+                  sweetAlertDialog.dismissWithAnimation();
+                  action = Single_PlayerDirections.actionSinglePlayerFragmentSelf(level,animal);
+                  Navigation.findNavController(getView()).navigate(action);
+
+                sweetAlertDialog.dismissWithAnimation();
               }
           });
         // sweetAlertDialog.set
