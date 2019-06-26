@@ -30,9 +30,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import es.dmoral.toasty.Toasty;
 
-public class Single_Player extends Fragment implements SinglePlayerAdapter.Listener {
+public class Single_Player extends Fragment  {
 
     private SinglePlayerViewModel mViewModel;
     private SinglePlayerAdapter adapter;
@@ -42,6 +43,8 @@ public class Single_Player extends Fragment implements SinglePlayerAdapter.Liste
     List<ImageResponse> imageResponse = new ArrayList<>();
     private NetworkUtil networkUtil;
     private int maxPoints;
+    SweetAlertDialog sweetAlertDialog;
+    private String leftTime;
 
     public static Single_Player newInstance() {
         return new Single_Player();
@@ -61,7 +64,8 @@ public class Single_Player extends Fragment implements SinglePlayerAdapter.Liste
         animal = Single_PlayerArgs.fromBundle(getArguments()).getAnimal();
         mViewModel = ViewModelProviders.of(this, new SinglePlayerViewmodelFactory(animal)).get(SinglePlayerViewModel.class);
         mViewModel.setUpTimer();
-
+        sweetAlertDialog=new SweetAlertDialog(getContext(),SweetAlertDialog.CUSTOM_IMAGE_TYPE);
+        sweetAlertDialog.setCancelable(false);
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         networkUtil = new NetworkUtil(getContext());
         if (!networkUtil.isConnected()) {
@@ -100,25 +104,69 @@ public class Single_Player extends Fragment implements SinglePlayerAdapter.Liste
     private void onLoadTimer() {
 
         mViewModel.timeUntilFinished.observe(this, timeLeft -> {
+            leftTime=timeLeft.toString();
             binding.time.setText(timeLeft.toString());
         });
         mViewModel.gameOver.observe(this, gameOver -> {
-            Toasty.error(getContext(), "Game over", Toasty.LENGTH_LONG).show();
+            sweetAlertDialog.setTitle("Game Over!");
+            sweetAlertDialog.setContentText("Better luck next time!");
+            sweetAlertDialog.setCustomImage(R.drawable.game_over);
+            sweetAlertDialog.setConfirmButton("Restart Game", new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    Toasty.success(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+                }
+            });
+            sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    Toasty.warning(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+                }
+            });
+            sweetAlertDialog.show();
         });
+        mViewModel.point.observe(this,newPoints ->{
+
+            binding.score.setText(Integer.toString(newPoints));
+            if (newPoints == maxPoints) {
+          sweetAlertDialog.setTitle("Congrats");
+          sweetAlertDialog.setContentText("Finished for "+(30-Integer.parseInt(leftTime))+" seconds!");
+
+          sweetAlertDialog.setCustomImage(R.drawable.trophy);
+          sweetAlertDialog.setConfirmButton("Restart Game", new SweetAlertDialog.OnSweetClickListener() {
+              @Override
+              public void onClick(SweetAlertDialog sweetAlertDialog) {
+                  Toasty.success(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+              }
+          });
+          sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
+              @Override
+              public void onClick(SweetAlertDialog sweetAlertDialog) {
+                  Toasty.warning(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+              }
+          });
+        // sweetAlertDialog.set
+
+
+                mViewModel.cancelTimer();
+                sweetAlertDialog.show();
+        }
+
+    });
 
     }
 
     public void setAdapter() {
         if (level != null) {
             if (level.equals("easy")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, dpToPx(80), dpToPx(100), this);
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6,mViewModel);
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
-                binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(10), EqualSpacingItemDecoration.GRID));
+                binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(15), EqualSpacingItemDecoration.GRID));
                 binding.recyclerView.setAdapter(adapter);
                 maxPoints = 3;
             }
             if (level.equals("hard")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, dpToPx(65), dpToPx(90), this);
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12,mViewModel);
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
                 binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(5), EqualSpacingItemDecoration.GRID));
                 binding.recyclerView.setAdapter(adapter);
@@ -156,14 +204,6 @@ public class Single_Player extends Fragment implements SinglePlayerAdapter.Liste
         return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
     }
 
-    @Override
-    public void itemClicked(int points) {
-        binding.score.setText(Integer.toString(points));
-        if (points == maxPoints) {
-            Toasty.success(getContext(), "Congrats", Toasty.LENGTH_LONG).show();
-            mViewModel.cancelTimer();
-        }
-    }
 
 }
 

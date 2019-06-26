@@ -15,8 +15,7 @@ import java.util.List;
 public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapter.MyViewHolder> implements View.OnClickListener {
     //constructor args
     int nrImages;
-    int width;
-    int height;
+
 
     //other variables
     CardView crv;
@@ -43,18 +42,16 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         return new MyViewHolder(view);
     }
 
-    public SinglePlayerAdapter(List<ImageResponse> imageResponse, Context context, int nrImages, int width, int height,Listener listener) {
+    public SinglePlayerAdapter(List<ImageResponse> imageResponse, Context context, int nrImages, Listener listener) {
         this.imageResponse = imageResponse;
         this.context = context;
         this.nrImages = nrImages;
-        this.width = width;
-        this.height = height;
+
         this.listener=listener;
     }
     @Override
     public void onBindViewHolder(@NonNull SinglePlayerAdapter.MyViewHolder holder, int position) {
-        holder.cardView.getLayoutParams().height = height;
-        holder.cardView.getLayoutParams().width = width;
+
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
