@@ -37,7 +37,7 @@ public class Single_Player extends Fragment {
     private String animal;
     List<ImageResponse> imageResponse = new ArrayList<>();
     private NetworkUtil networkUtil;
-private Picasso picasso;
+
     public static Single_Player newInstance() {
         return new Single_Player();
     }
@@ -55,9 +55,7 @@ private Picasso picasso;
         super.onActivityCreated(savedInstanceState);
         animal=Single_PlayerArgs.fromBundle(getArguments()).getAnimal();
         mViewModel = ViewModelProviders.of(this,new SinglePlayerViewmodelFactory(animal)).get(SinglePlayerViewModel.class);
-picasso=Picasso.get();
-        picasso.setIndicatorsEnabled(true);
-        picasso.setLoggingEnabled(true);
+mViewModel.setUpTimer();
 
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         networkUtil=new NetworkUtil(getContext());
@@ -84,7 +82,14 @@ picasso=Picasso.get();
             setAdapter();
             Collections.shuffle(imageResponse);
             adapter.notifyDataSetChanged();
+            mViewModel.startTimer();
 
+        });
+        mViewModel.timeUntilFinished.observe(this,timeLeft ->{
+            binding.time.setText(timeLeft.toString());
+        });
+        mViewModel.gameOver.observe(this,gameOver ->{
+            Toasty.error(getContext(),"Game over",Toasty.LENGTH_LONG).show();
         });
 
 
