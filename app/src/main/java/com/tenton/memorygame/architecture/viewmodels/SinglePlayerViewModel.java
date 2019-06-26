@@ -1,15 +1,9 @@
 package com.tenton.memorygame.architecture.viewmodels;
-
-import android.app.Application;
 import android.os.CountDownTimer;
-
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
 import com.tenton.memorygame.architecture.models.ImageResponse;
 import com.tenton.memorygame.architecture.repositories.ImagesRepository;
-
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -59,9 +53,9 @@ gameOver.setValue(false);
     }
 
 
-    public LiveData<List<ImageResponse>> getImageRepository() {
-        return imageResponse;
-    }
+   public void cancelTimer(){
+        countDownTimer.cancel();
+   }
 
     @Override
     protected void onCleared() {

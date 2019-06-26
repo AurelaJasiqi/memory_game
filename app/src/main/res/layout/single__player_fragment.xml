@@ -57,7 +57,7 @@
                         android:fontFamily="sans-serif-smallcaps"
                         android:gravity="left"
                         android:paddingTop="3dp"
-                        android:text="Score:"
+                        android:text="0"
                         android:textColor="@color/white"
                         android:textSize="27dp" />
 
@@ -80,7 +80,6 @@
                         android:layout_weight="1"
                         android:fontFamily="sans-serif-smallcaps"
                         android:paddingTop="3dp"
-                        android:text="Time:"
                         android:textColor="@color/white"
                         android:textSize="27dp" />
                 </LinearLayout>

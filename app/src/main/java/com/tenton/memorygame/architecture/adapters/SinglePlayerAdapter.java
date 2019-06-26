@@ -8,12 +8,10 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.tenton.memorygame.Modules.GlideApp;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.models.ImageResponse;
 import java.util.List;
-
 public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapter.MyViewHolder> implements View.OnClickListener {
     //constructor args
     int nrImages;
@@ -26,6 +24,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     String photoId;
     int photoTag;
     int pos;
+    int points=0;
 
     //view holder variables
     ImageView imageView_holder;
@@ -33,6 +32,7 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
     boolean isClicked = false;
     List<ImageResponse> imageResponse;
     Context context;
+    Listener listener;
 
     @NonNull
     @Override
@@ -43,12 +43,13 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
         return new MyViewHolder(view);
     }
 
-    public SinglePlayerAdapter(List<ImageResponse> imageResponse, Context context, int nrImages, int width, int height) {
+    public SinglePlayerAdapter(List<ImageResponse> imageResponse, Context context, int nrImages, int width, int height,Listener listener) {
         this.imageResponse = imageResponse;
         this.context = context;
         this.nrImages = nrImages;
         this.width = width;
         this.height = height;
+        this.listener=listener;
     }
     @Override
     public void onBindViewHolder(@NonNull SinglePlayerAdapter.MyViewHolder holder, int position) {
@@ -88,6 +89,8 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
                                v.setVisibility(View.INVISIBLE);
                                crv.setVisibility(View.INVISIBLE);
                                isClicked = false;
+                               points++;
+                               listener.itemClicked(points);
                            }
                        }.start();
                     }
@@ -153,5 +156,8 @@ public class SinglePlayerAdapter extends RecyclerView.Adapter<SinglePlayerAdapte
             cardView = itemView.findViewById(R.id.cardview_id);
             imageView = itemView.findViewById(R.id.img_id);
         }
+    }
+   public interface Listener{
+     void itemClicked(int points);
     }
 }
