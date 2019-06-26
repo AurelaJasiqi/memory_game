@@ -26,13 +26,21 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
     CardView crv;
     CountDownTimer countDownTimer;
 
-    Boolean playerOne=true;
-    Boolean playerTwo=false;
+
+    Boolean playerOneTurn=true;
+    Boolean playerTwoTurn=false;
+    Boolean turn = true;
+    int p1Points = 0;
+    int p2Points = 0;
 
 
-    public MultiPlayerAdapter(List<ImageResponse> imageResponseMultiPlayer, Context context) {
+    Listener listener;
+
+
+    public MultiPlayerAdapter(List<ImageResponse> imageResponseMultiPlayer, Context context, Listener listener) {
         this.imageResponseMultiPlayer = imageResponseMultiPlayer;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -85,6 +93,13 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                                 isClicked = false;
                             }
                         }.start();
+                       if(playerOneTurn == true && playerTwoTurn == false){
+                            p1Points++;
+                       }else if(playerOneTurn == false && playerTwoTurn == true){
+                           p2Points++;
+                       }
+                        listener.onPointsChanged(p1Points,p2Points);
+                        playerTurn();
 
                     } else if (photoId == imageResponseMultiPlayer.get(position).getImgId() && photoTag ==
                             imageResponseMultiPlayer.get(position).getTag()) {
@@ -107,6 +122,7 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                                 isClicked = false;
                             }
                         }.start();
+                        playerTurn();
 
                     } else {
 
@@ -128,7 +144,7 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                                 isClicked = false;
                             }
                         }.start();
-
+                        playerTurn();
                     }
                 }
             }
@@ -148,18 +164,24 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
             super(itemView);
             cardView = itemView.findViewById(R.id.cardview_id);
             imageView = itemView.findViewById(R.id.img_id);
-
-            }
+        }
         }
 
         public void playerTurn(){
-        if(playerOne == true && playerTwo ==  false){
-            playerOne = false;
-            playerTwo = true;
-        }else if(playerOne == false && playerTwo == true){
-            playerOne = true;
-            playerTwo = false;
+        if(playerOneTurn == true && playerTwoTurn ==  false){
+            playerOneTurn = false;
+            playerTwoTurn = true;
+            listener.checkTurn(true);
+        }else if(playerOneTurn == false && playerTwoTurn == true){
+            playerOneTurn = true;
+            playerTwoTurn = false;
+            listener.checkTurn(false);
         }
+        }
+
+        public interface Listener{
+        void onPointsChanged(int p1Points, int p2Points);
+        void checkTurn(Boolean turn);
         }
 
     }
