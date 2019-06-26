@@ -81,7 +81,7 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                 } else {
                     if (photoId != imageResponseMultiPlayer.get(position).getImgId() && photoTag ==
                             imageResponseMultiPlayer.get(position).getTag()) {
-                       countDownTimer = new CountDownTimer(500, 150) {
+                       countDownTimer = new CountDownTimer(800, 200) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                             }
@@ -104,7 +104,7 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
                     } else if (photoId == imageResponseMultiPlayer.get(position).getImgId() && photoTag ==
                             imageResponseMultiPlayer.get(position).getTag()) {
 
-                        countDownTimer = new CountDownTimer(500, 150) {
+                        countDownTimer = new CountDownTimer(800, 200) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                             }
@@ -126,7 +126,7 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
 
                     } else {
 
-                        new CountDownTimer(500, 150) {
+                        new CountDownTimer(800, 200) {
                             @Override
                             public void onTick(long millisUntilFinished) {
                             }

@@ -4,7 +4,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +38,11 @@ public class MultiPlayer extends Fragment {
     private NetworkUtil networkUtil;
     private String playerOneName;
     private String playerTwoName;
+    private String contentText = "";
+    private Integer p1Points = 0;
+    private Integer p2Points = 0;
+    private SweetAlertDialog dialog;
+
 
 
     List<ImageResponse> imageResponseMultiPlayer = new ArrayList<>();
@@ -95,6 +99,26 @@ public class MultiPlayer extends Fragment {
         });
 
         onLoadTimer();
+
+        if (p1Points + p2Points == 6){
+            if(p1Points > p2Points){
+                contentText = "Congrats "+playerOneName+"\n"+playerTwoName+" you're a loser!";
+                dialog.setCancelable(false);
+                dialog.show();
+            }else if(p1Points < p2Points){
+                contentText = "Congrats "+playerTwoName+"\n"+playerOneName+" you're a loser!";
+                dialog.setCancelable(false);
+                dialog.show();
+            }else if(p1Points == p2Points){
+                contentText = "Try again!";
+                dialog.setCancelable(false);
+                dialog.show();
+            }else{
+                contentText = "No no, it can't be, try again!";
+                dialog.setCancelable(false);
+                dialog.show();
+            }
+        }
     }
 
     public void setAdapter() {
@@ -127,9 +151,9 @@ public class MultiPlayer extends Fragment {
     }
 
     public void SweetAlertDialogWarning() {
-        new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+         dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("Your time is over!")
-                .setContentText("We think that you're a good player, try again!")
+                .setContentText(contentText)
                 .setConfirmText("Yes, try again!")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -144,9 +168,7 @@ public class MultiPlayer extends Fragment {
                         sDialog.dismissWithAnimation();
                         getActivity().onBackPressed();
                     }
-                })
-                .show();
-
+                });
 
     }
 
@@ -156,15 +178,19 @@ public class MultiPlayer extends Fragment {
             binding.tvTimer.setText(timeLeft.toString());
         });
         mViewModel.gameOver.observe(this, gameOver -> {
-            SweetAlertDialogWarning();
+            contentText = "Game Over, try again harder!";
+            dialog.setCancelable(false);
+            dialog.show();
         });
 
-        mViewModel.p1PointsLive.observe(this, p1Points ->{
-            binding.tvP1Points.setText(Integer.toString(p1Points));
+        mViewModel.p1PointsLive.observe(this, p1PointsFromLive ->{
+            binding.tvP1Points.setText(Integer.toString(p1PointsFromLive));
+            p1Points=p1PointsFromLive;
         });
 
-        mViewModel.p2PointsLive.observe(this, p2Points ->{
-            binding.tvP2Points.setText(Integer.toString(p2Points));
+        mViewModel.p2PointsLive.observe(this, p2PointsFromLive ->{
+            binding.tvP2Points.setText(Integer.toString(p2PointsFromLive));
+            p2Points = p2PointsFromLive;
         });
 
         mViewModel.turnLive.observe(this, turn ->{
@@ -177,8 +203,6 @@ public class MultiPlayer extends Fragment {
             }
         });
     }
-
-
 }
 
 
