@@ -1,34 +1,14 @@
 package com.tenton.memorygame.architecture.adapters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.target.Target;
-import com.bumptech.glide.request.transition.Transition;
 import com.tenton.memorygame.Modules.GlideApp;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.models.ImageResponse;
@@ -45,6 +25,9 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
     int photoTag;
     CardView crv;
     CountDownTimer countDownTimer;
+
+    Boolean playerOne=true;
+    Boolean playerTwo=false;
 
 
     public MultiPlayerAdapter(List<ImageResponse> imageResponseMultiPlayer, Context context) {
@@ -168,6 +151,17 @@ public class MultiPlayerAdapter extends RecyclerView.Adapter<MultiPlayerAdapter.
 
             }
         }
+
+        public void playerTurn(){
+        if(playerOne == true && playerTwo ==  false){
+            playerOne = false;
+            playerTwo = true;
+        }else if(playerOne == false && playerTwo == true){
+            playerOne = true;
+            playerTwo = false;
+        }
+        }
+
     }
 
 
