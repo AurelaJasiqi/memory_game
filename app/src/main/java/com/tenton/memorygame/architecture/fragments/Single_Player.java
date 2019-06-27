@@ -34,7 +34,7 @@ import java.util.List;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import es.dmoral.toasty.Toasty;
 
-public class Single_Player extends Fragment  {
+public class Single_Player extends Fragment {
 
     private SinglePlayerViewModel mViewModel;
     private SinglePlayerAdapter adapter;
@@ -66,7 +66,7 @@ public class Single_Player extends Fragment  {
         animal = Single_PlayerArgs.fromBundle(getArguments()).getAnimal();
         mViewModel = ViewModelProviders.of(this, new SinglePlayerViewmodelFactory(animal)).get(SinglePlayerViewModel.class);
         mViewModel.setUpTimer();
-        sweetAlertDialog=new SweetAlertDialog(getContext(),SweetAlertDialog.CUSTOM_IMAGE_TYPE);
+        sweetAlertDialog = new SweetAlertDialog(getContext(), SweetAlertDialog.CUSTOM_IMAGE_TYPE);
         sweetAlertDialog.setCancelable(false);
         level = Single_PlayerArgs.fromBundle(getArguments()).getLevel();
         networkUtil = new NetworkUtil(getContext());
@@ -106,7 +106,7 @@ public class Single_Player extends Fragment  {
     private void onLoadTimer() {
 
         mViewModel.timeUntilFinished.observe(this, timeLeft -> {
-            leftTime=timeLeft.toString();
+            leftTime = timeLeft.toString();
             binding.time.setText(timeLeft.toString());
         });
         mViewModel.gameOver.observe(this, gameOver -> {
@@ -116,67 +116,69 @@ public class Single_Player extends Fragment  {
             sweetAlertDialog.setConfirmButton("Restart Game", new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    Toasty.success(getContext(),"Congrats",Toasty.LENGTH_LONG).show();
+                    sweetAlertDialog.dismissWithAnimation();
+                    action = Single_PlayerDirections.actionSinglePlayerFragmentSelf(level, animal);
+                    Navigation.findNavController(getView()).navigate(action);
+                    sweetAlertDialog.dismissWithAnimation();
                 }
             });
             sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
                 @Override
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
-                    sweetAlertDialog.dismissWithAnimation();
-                    action = Single_PlayerDirections.actionSinglePlayerFragmentSelf(level,animal);
-                    Navigation.findNavController(getView()).navigate(action);
-
+                    getActivity().onBackPressed();
                     sweetAlertDialog.dismissWithAnimation();
                 }
             });
             sweetAlertDialog.show();
         });
-        mViewModel.point.observe(this,newPoints ->{
+        mViewModel.point.observe(this, newPoints -> {
 
             binding.score.setText(Integer.toString(newPoints));
             if (newPoints == maxPoints) {
-          sweetAlertDialog.setTitle("Congrats");
-          sweetAlertDialog.setContentText("Finished for "+(30-Integer.parseInt(leftTime))+" seconds!");
+                sweetAlertDialog.setTitle("Congrats");
+                sweetAlertDialog.setContentText("Finished for " + (30 - Integer.parseInt(leftTime)) + " seconds!");
 
-          sweetAlertDialog.setCustomImage(R.drawable.trophy);
-          sweetAlertDialog.setConfirmButton("Restart Game", new SweetAlertDialog.OnSweetClickListener() {
-              @Override
-              public void onClick(SweetAlertDialog sweetAlertDialog) {
-                  sweetAlertDialog.dismissWithAnimation();
-              }
-          });
-          sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
-              @Override
-              public void onClick(SweetAlertDialog sweetAlertDialog) {
-                  sweetAlertDialog.dismissWithAnimation();
-                  action = Single_PlayerDirections.actionSinglePlayerFragmentSelf(level,animal);
-                  Navigation.findNavController(getView()).navigate(action);
+                sweetAlertDialog.setCustomImage(R.drawable.trophy);
+                sweetAlertDialog.setConfirmButton("Restart Game", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        sweetAlertDialog.dismissWithAnimation();
+                        action = Single_PlayerDirections.actionSinglePlayerFragmentSelf(level, animal);
+                        Navigation.findNavController(getView()).navigate(action);
 
-                sweetAlertDialog.dismissWithAnimation();
-              }
-          });
-        // sweetAlertDialog.set
+                        sweetAlertDialog.dismissWithAnimation();
+                    }
+                });
+                sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        getActivity().onBackPressed();
+                        sweetAlertDialog.dismissWithAnimation();
+
+                    }
+                });
+                // sweetAlertDialog.set
 
 
                 mViewModel.cancelTimer();
                 sweetAlertDialog.show();
-        }
+            }
 
-    });
+        });
 
     }
 
     public void setAdapter() {
         if (level != null) {
             if (level.equals("easy")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6,mViewModel);
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 6, mViewModel);
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 3));
                 binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(15), EqualSpacingItemDecoration.GRID));
                 binding.recyclerView.setAdapter(adapter);
                 maxPoints = 3;
             }
             if (level.equals("hard")) {
-                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12,mViewModel);
+                adapter = new SinglePlayerAdapter(imageResponse, getContext(), 12, mViewModel);
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 4));
                 binding.recyclerView.addItemDecoration(new EqualSpacingItemDecoration(dpToPx(5), EqualSpacingItemDecoration.GRID));
                 binding.recyclerView.setAdapter(adapter);

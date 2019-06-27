@@ -4,6 +4,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,6 +45,7 @@ public class MultiPlayer extends Fragment {
     private Integer p2Points = 0;
     private SweetAlertDialog dialog;
     private MultiPlayer fragment;
+    int drawable;
     private MultiPlayerDirections.ActionMultiPlayerSelf action;
 
 
@@ -134,8 +136,9 @@ public class MultiPlayer extends Fragment {
     }
 
     public void SweetAlertDialogWarning() {
-         dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.WARNING_TYPE)
+         dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                 .setTitleText(contentText)
+                 .setCustomImage(drawable)
                 .setConfirmText("Restart Game")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
@@ -168,6 +171,7 @@ public class MultiPlayer extends Fragment {
         });
         mViewModel.gameOver.observe(this, gameOver -> {
             contentText = "Game Over, try again harder!";
+            drawable=R.drawable.game_over;
             SweetAlertDialogWarning();
         });
 
@@ -196,6 +200,7 @@ public class MultiPlayer extends Fragment {
 
     public void checkForTheWinner(){
         if (p1Points + p2Points == 6){
+            drawable=R.drawable.trophy;
             if(p1Points > p2Points){
                 contentText = "Congrats "+playerOneName+" you're the winner!";
                 SweetAlertDialogWarning();

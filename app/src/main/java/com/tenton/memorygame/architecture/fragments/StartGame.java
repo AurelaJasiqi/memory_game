@@ -1,44 +1,35 @@
 package com.tenton.memorygame.architecture.fragments;
-
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.viewmodels.StartGameViewModel;
 import com.tenton.memorygame.databinding.StartGameFragmentBinding;
-
 import es.dmoral.toasty.Toasty;
 
 public class StartGame extends Fragment {
-
     private StartGameViewModel mViewModel;
     private StartGameFragmentBinding binding;
     private String animal="dog";
     private PopupWindow pw;
-
+    private FrameLayout frameLayout;
     private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
-
-
-
     //CFAlertDialogBuilder
     private CFAlertDialog.Builder builder;
 
@@ -59,6 +50,7 @@ public class StartGame extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(StartGameViewModel.class);
         binding.setViewModel(mViewModel);
+        frameLayout=(FrameLayout) getActivity().findViewById(R.id.frame_layout);
         navigateToSinglePlayer();
         navigateToMultiPlayer();
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -118,6 +110,7 @@ public class StartGame extends Fragment {
         binding.btnMultiPlayer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                binding.parent.setAlpha(0.1f);
                 pw.showAtLocation(v, Gravity.CENTER, 0, 0);
                 pw.getContentView().findViewById(R.id.btn_startGame).setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -136,6 +129,13 @@ public class StartGame extends Fragment {
                         }
                     }
                 });
+                pw.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        binding.parent.setAlpha(1f);
+                    }
+                });
+
             }
         });
 
