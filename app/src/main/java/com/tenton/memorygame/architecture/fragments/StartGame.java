@@ -1,13 +1,19 @@
 package com.tenton.memorygame.architecture.fragments;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
+
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
+
+import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +22,18 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Toast;
+
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
+import com.irozon.alertview.AlertActionStyle;
+import com.irozon.alertview.AlertStyle;
+import com.irozon.alertview.AlertTheme;
+import com.irozon.alertview.AlertView;
+import com.irozon.alertview.objects.AlertAction;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.viewmodels.StartGameViewModel;
+import com.tenton.memorygame.bluetooth.Bluetooth;
 import com.tenton.memorygame.databinding.StartGameFragmentBinding;
 import es.dmoral.toasty.Toasty;
 
@@ -32,6 +46,10 @@ public class StartGame extends Fragment {
     private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
     //CFAlertDialogBuilder
     private CFAlertDialog.Builder builder;
+    private Bluetooth bluetooth;
+    private static final int REQUEST_ENABLE_BT = 3;
+    private AlertView alert;
+    private AlertAction alertAction;
 
     public static StartGame newInstance() {
         return new StartGame();
@@ -53,6 +71,7 @@ public class StartGame extends Fragment {
         frameLayout=(FrameLayout) getActivity().findViewById(R.id.frame_layout);
         navigateToSinglePlayer();
         navigateToMultiPlayer();
+        navigateToBluetooth();
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         pw = new PopupWindow(
                 inflater.inflate(R.layout.item_popup, null, false),
@@ -141,4 +160,23 @@ public class StartGame extends Fragment {
 
     }
 
+    private void navigateToBluetooth(){
+        binding.btnMultiPlayerBluetooth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bluetooth = new Bluetooth(getContext());
+                bluetooth.onStart();
+                if(!bluetooth.isEnabled()){
+                    AlertView alert = new AlertView("Bluetooth", "Do you want to enable bluetooth for you?", AlertStyle.BOTTOM_SHEET);
+                    alert.addAction(new AlertAction("Yes", AlertActionStyle.DEFAULT, action -> {
+                        bluetooth.enable();
+                    }));
+                    alert.addAction(new AlertAction("No", AlertActionStyle.NEGATIVE, action -> {
+                        getExitTransition();
+                    }));
+                    alert.show((AppCompatActivity) getActivity());
+                }
+            }
+        });
+    }
 }

@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-import com.tenton.memorygame.Modules.GlideApp;
+import com.tenton.memorygame.modules.GlideApp;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.models.ImageResponse;
 import java.util.List;

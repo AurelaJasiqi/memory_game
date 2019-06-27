@@ -76,6 +76,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.0.0"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
@@ -84,7 +85,8 @@ dependencies {
     //blur popup window
     implementation 'com.kyleduo.blurpopupwindow:blurpopupwindow:1.0.9'
 
-
+    //AlertView
+    implementation 'com.irozon.alertview:alertview:1.0.1'
 }
 repositories {
     mavenCentral()
