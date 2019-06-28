@@ -51,7 +51,7 @@ public class AvalaibleDevices extends Fragment {
     }
 
     public void show(){
-        binding.btnShow.setOnClickListener(new View.OnClickListener() {
+        binding.btnShowPaireddevices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Set<BluetoothDevice> bd = bluetoothAdapter.getBondedDevices();
