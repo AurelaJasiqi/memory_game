@@ -1,8 +1,6 @@
 package com.tenton.memorygame.architecture.fragments;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,8 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
-
-import android.provider.Settings;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,16 +22,15 @@ import android.widget.Toast;
 
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
 import com.crowdfire.cfalertdialog.CFAlertDialog;
-import com.irozon.alertview.AlertActionStyle;
-import com.irozon.alertview.AlertStyle;
-import com.irozon.alertview.AlertTheme;
-import com.irozon.alertview.AlertView;
-import com.irozon.alertview.objects.AlertAction;
+
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.viewmodels.StartGameViewModel;
-import com.tenton.memorygame.bluetooth.Bluetooth;
 import com.tenton.memorygame.databinding.StartGameFragmentBinding;
+
 import es.dmoral.toasty.Toasty;
+
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
 public class StartGame extends Fragment {
     private StartGameViewModel mViewModel;
@@ -44,12 +39,13 @@ public class StartGame extends Fragment {
     private PopupWindow pw;
     private FrameLayout frameLayout;
     private StartGameDirections.ActionStartGameFragmentToSinglePlayerFragment action;
+
     //CFAlertDialogBuilder
     private CFAlertDialog.Builder builder;
-    private Bluetooth bluetooth;
-    private static final int REQUEST_ENABLE_BT = 3;
-    private AlertView alert;
-    private AlertAction alertAction;
+    private BluetoothAdapter bluetoothAdapter;
+
+    Intent enableBluetooth;
+    int requestCodeForEnable;
 
     public static StartGame newInstance() {
         return new StartGame();
@@ -61,6 +57,7 @@ public class StartGame extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.start_game_fragment, container, false);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
+
     }
 
     @Override
@@ -69,6 +66,11 @@ public class StartGame extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(StartGameViewModel.class);
         binding.setViewModel(mViewModel);
         frameLayout=(FrameLayout) getActivity().findViewById(R.id.frame_layout);
+        enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        requestCodeForEnable = 1;
+
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+
         navigateToSinglePlayer();
         navigateToMultiPlayer();
         navigateToBluetooth();
@@ -86,7 +88,17 @@ public class StartGame extends Fragment {
                 animal=binding.segmentedAnimalBtn.getButton(position).getTag().toString();
             }
         });
+    }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == requestCodeForEnable){
+            if(resultCode == RESULT_OK){
+                Toast.makeText(getContext(),"Bluetooth is enabled!", Toast.LENGTH_SHORT).show();
+            }else if(resultCode == RESULT_CANCELED){
+                Toast.makeText(getContext(),"Bluetooth enabling is canceled!", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void navigateToSinglePlayer() {
@@ -164,18 +176,17 @@ public class StartGame extends Fragment {
         binding.btnMultiPlayerBluetooth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bluetooth = new Bluetooth(getContext());
-                bluetooth.onStart();
-                if(!bluetooth.isEnabled()){
-                    AlertView alert = new AlertView("Bluetooth", "Do you want to enable bluetooth for you?", AlertStyle.BOTTOM_SHEET);
-                    alert.addAction(new AlertAction("Yes", AlertActionStyle.DEFAULT, action -> {
-                        bluetooth.enable();
-                    }));
-                    alert.addAction(new AlertAction("No", AlertActionStyle.NEGATIVE, action -> {
-                        getExitTransition();
-                    }));
-                    alert.show((AppCompatActivity) getActivity());
+                if(bluetoothAdapter == null){
+                    Toast.makeText(getContext(), "Your device does not support Bluetooth",Toast.LENGTH_SHORT).show();
+//                    Navigation.findNavController(getView()).navigate(StartGameDirections.actionStartGameFragmentToAvalaibleDevices());
+
+
+                }else{
+                    if(!bluetoothAdapter.isEnabled()){
+                        startActivityForResult(enableBluetooth,requestCodeForEnable);
+                    }
                 }
+
             }
         });
     }
