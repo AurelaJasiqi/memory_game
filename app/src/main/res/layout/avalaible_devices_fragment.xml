@@ -14,148 +14,202 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
     tools:context=".architecture.fragments.AvalaibleDevices">
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraint_parent"
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/btn_show_paireddevices"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/popup_bg"
-            android:fontFamily="casual"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Show Paired Devices"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btn_show_discover_devices"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/popup_bg"
-            android:fontFamily="casual"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:text="Discover Devices"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_show_paireddevices"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:id="@+id/pairedDevices_view"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:weightSum="6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_show_paireddevices">
+            android:layout_height="match_parent">
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@color/white" />
+            <Button
+                android:id="@+id/btn_show_paireddevices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/popup_bg"
+                android:fontFamily="casual"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Show Paired Devices"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btn_show_discover_devices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/popup_bg"
+                android:fontFamily="casual"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Be Discoverable"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/btn_show_paireddevices"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/tv_status"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:fontFamily="casual"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Paired Devices"
-                android:textColor="@color/white"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="8dp"
+                android:text="Status"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                app:layout_constraintBottom_toBottomOf="@+id/btn_list_devices"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_show_discover_devices" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@color/white" />
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/listView_paired_devices"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pairedDevices_view" />
-
-        <LinearLayout
-            android:id="@+id/discovered_devices_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:weightSum="6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/listView_paired_devices">
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@color/white" />
-
-            <TextView
-                android:layout_width="0dp"
+            <Button
+                android:id="@+id/btn_listen"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="2"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/popup_bg"
                 android:fontFamily="casual"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Discovered Devices"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Listen"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                app:layout_constraintStart_toStartOf="@+id/btn_show_paireddevices"
+                app:layout_constraintTop_toBottomOf="@+id/btn_show_paireddevices" />
 
-            <View
+            <Button
+                android:id="@+id/btn_list_devices"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/popup_bg"
+                android:fontFamily="casual"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="List Devices"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/tv_status"
+                app:layout_constraintStart_toEndOf="@+id/btn_listen"
+                app:layout_constraintTop_toBottomOf="@+id/btn_show_discover_devices" />
+
+            <LinearLayout
+                android:id="@+id/pairedDevices_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:weightSum="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_list_devices"
+                android:visibility="gone"
+                >
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Paired Devices"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@color/white" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listView_paired_devices"
                 android:layout_width="0dp"
-                android:layout_height="2dp"
-                android:layout_gravity="center"
-                android:layout_weight="2"
-                android:background="@color/white" />
-          </LinearLayout>
+                android:layout_height="200dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/pairedDevices_view"
+                android:visibility="gone"
+                />
 
-        <ListView
-            android:id="@+id/listView_discovered_devices"
-            android:layout_width="0dp"
-            android:layout_height="200dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/discovered_devices_view" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <LinearLayout
+                android:id="@+id/list_devices_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="20dp"
+                android:weightSum="6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/listView_paired_devices"
+                android:visibility="gone"
+                >
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@color/white" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:fontFamily="casual"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="List Devices"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:background="@color/white" />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/listView_list_devices"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/list_devices_view"
+                app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </FrameLayout>
 </layout>
