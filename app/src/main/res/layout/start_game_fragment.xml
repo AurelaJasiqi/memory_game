@@ -46,7 +46,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginStart="50dp"
-                    android:layout_marginTop="60dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="50dp"
                     android:background="@drawable/button_radius"
                     android:backgroundTint="@color/light_green"
@@ -118,7 +118,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="44dp"
+                    android:layout_marginTop="24dp"
                     android:layout_marginEnd="20dp"
                     android:weightSum="6"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -206,8 +206,8 @@
 
                         <com.addisonelliott.segmentedbutton.SegmentedButton
                             android:id="@+id/btn_panda"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_width="100dp"
+                            android:layout_height="60dp"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:tag="panda"

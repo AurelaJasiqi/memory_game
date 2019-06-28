@@ -5,6 +5,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +25,7 @@ import com.tenton.memorygame.architecture.viewmodels.AvalaibleDevicesViewModel;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.databinding.AvalaibleDevicesFragmentBinding;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class AvalaibleDevices extends Fragment {
@@ -28,6 +33,18 @@ public class AvalaibleDevices extends Fragment {
     private AvalaibleDevicesViewModel mViewModel;
     private AvalaibleDevicesFragmentBinding binding;
     private BluetoothAdapter bluetoothAdapter;
+
+    ArrayList<String> discoverDevices = new ArrayList<>();
+    ArrayAdapter<String> arrayAdapter;
+
+    IntentFilter intentFilter = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
+    BroadcastReceiver scanModeReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(action.equals(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED));
+        }
+    };
 
     public static AvalaibleDevices newInstance() {
         return new AvalaibleDevices();
@@ -46,11 +63,26 @@ public class AvalaibleDevices extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(AvalaibleDevicesViewModel.class);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        show();
+        showPairedDevices();
+        showDiscoveredDevices();
+
+
 
     }
 
-    public void show(){
+    BroadcastReceiver myReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if(BluetoothDevice.ACTION_FOUND.equals(action)){
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                discoverDevices.add(device.getName());
+                arrayAdapter.notifyDataSetChanged();
+            }
+        }
+    };
+
+    public void showPairedDevices(){
         binding.btnShowPaireddevices.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,9 +95,28 @@ public class AvalaibleDevices extends Fragment {
                         index++ ;
                     }
 
-                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_list_item_1,strings);
-                    binding.listView.setAdapter(arrayAdapter);
+                    ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,strings);
+                    binding.listViewPairedDevices.setAdapter(arrayAdapter1);
                 }
+            }
+        });
+    }
+
+    public void showDiscoveredDevices(){
+        binding.btnShowDiscoverDevices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bluetoothAdapter.startDiscovery();
+
+                IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+                getActivity().registerReceiver(myReceiver,intentFilter);
+
+                Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+                intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION,10);
+                startActivity(intent);
+
+                arrayAdapter = new ArrayAdapter<>(getContext(),android.R.layout.simple_list_item_1,discoverDevices);
+                binding.listViewDiscoveredDevices.setAdapter(arrayAdapter);
             }
         });
     }
