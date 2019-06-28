@@ -134,6 +134,12 @@ public class StartGame extends Fragment {
                 builder.show();
             }
         });
+        binding.btnScoreTable.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getView()).navigate(StartGameDirections.actionStartGameFragmentToScoreFragment());
+            }
+        });
 
     }
 

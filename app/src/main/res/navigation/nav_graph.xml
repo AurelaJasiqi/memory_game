@@ -19,6 +19,9 @@
     <action
         android:id="@+id/action_start_game_fragment_to_avalaibleDevices2"
         app:destination="@id/avalaibleDevices2" />
+    <action
+        android:id="@+id/action_start_game_fragment_to_scoreFragment"
+        app:destination="@id/scoreFragment" />
 </fragment>
     <fragment
     android:name="com.tenton.memorygame.architecture.fragments.Single_Player"
@@ -39,9 +42,6 @@
             android:id="@+id/action_single_player_fragment_self"
             app:destination="@id/single_player_fragment"
             app:popUpTo="@+id/start_game_fragment" />
-        <action
-            android:id="@+id/action_single_player_fragment_to_scoreFragment"
-            app:destination="@id/scoreFragment" />
     </fragment>
     <fragment
         android:id="@+id/multiPlayer"

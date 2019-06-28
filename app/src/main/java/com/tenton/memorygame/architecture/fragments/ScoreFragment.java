@@ -79,18 +79,23 @@ public class ScoreFragment extends Fragment {
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if(easyLevelScores.size()>1 || hardLevelScores.size()>1 ){
+            if(easyLevelScores.size()>1  ){
                 binding.easyLevel1.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
-                binding.hardLevel11.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
             }
-            if(easyLevelScores.size()>2 || hardLevelScores.size()>2){
+            if(easyLevelScores.size()>2 ){
                 binding.easyLevel2.setText(String.valueOf(easyLevelScores.get(1).getScores())+" seconds");
-                binding.hardLevel2.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
             }
-            if(easyLevelScores.size()>3 || hardLevelScores.size()>3){
+            if(easyLevelScores.size()>3){
                 binding.easyLevel3.setText(String.valueOf(easyLevelScores.get(2).getScores())+" seconds");
-                binding.hardLevel3.setText(String.valueOf(hardLevelScores.get(2).getScores())+" seconds");
-
+            }
+            if (hardLevelScores.size()>1){
+                binding.hardLevel11.setText(String.valueOf(hardLevelScores.get(0).getScores())+" seconds");
+            }
+            if (hardLevelScores.size()>2){
+                binding.hardLevel2.setText(String.valueOf(hardLevelScores.get(0).getScores())+" seconds");
+            }
+            if (hardLevelScores.size()>3){
+                binding.hardLevel3.setText(String.valueOf(hardLevelScores.get(0).getScores())+" seconds");
             }
             super.onPostExecute(aVoid);
         }

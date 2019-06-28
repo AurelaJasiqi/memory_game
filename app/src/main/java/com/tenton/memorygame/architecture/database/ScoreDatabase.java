@@ -5,7 +5,7 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-@Database(entities = {EasyLevelScore.class,HardLevelScore.class}, version = 2, exportSchema = false)
+@Database(entities = {EasyLevelScore.class,HardLevelScore.class}, version = 3, exportSchema = false)
 public abstract class ScoreDatabase extends RoomDatabase {
     public static ScoreDatabase  INSTANCE;
     public abstract EasyLevelScoreDao easyLevelScore();
