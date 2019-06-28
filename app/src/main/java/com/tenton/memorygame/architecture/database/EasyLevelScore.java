@@ -6,7 +6,6 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "easy_level_score_table")
 public class EasyLevelScore {
     @PrimaryKey(autoGenerate = true)
-    private int id;
     private int scores;
 
     public int getScores() {

@@ -23,6 +23,9 @@ import android.widget.Toast;
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
 import com.tenton.memorygame.architecture.database.EasyLevelScore;
+import com.tenton.memorygame.architecture.database.EasyLevelScoreDao;
+import com.tenton.memorygame.architecture.database.HardLevelScore;
+import com.tenton.memorygame.architecture.database.HardLevelScoreDao;
 import com.tenton.memorygame.architecture.database.Score;
 import com.tenton.memorygame.architecture.database.ScoreDao;
 import com.tenton.memorygame.architecture.database.ScoreDatabase;
@@ -53,7 +56,8 @@ public class Single_Player extends Fragment {
     SweetAlertDialog sweetAlertDialog;
     private String leftTime;
     private Single_PlayerDirections.ActionSinglePlayerFragmentSelf action;
-    private EasyLevelScore scoreDao;
+    private EasyLevelScoreDao easyLevelScoreDao;
+    private HardLevelScoreDao hardLevelScoreDao;
     private Application application;
 
 
@@ -66,8 +70,9 @@ public class Single_Player extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.single__player_fragment, container, false);
         binding.setLifecycleOwner(this);
-        application=this.getActivity().getApplication();
-        scoreDao= ScoreDatabase.getDatabase(application).easyLevelScore();
+        application = this.getActivity().getApplication();
+        easyLevelScoreDao = ScoreDatabase.getDatabase(application).easyLevelScore();
+        hardLevelScoreDao = ScoreDatabase.getDatabase(application).hardLevelScoreDao();
         return binding.getRoot();
     }
 
@@ -145,7 +150,15 @@ public class Single_Player extends Fragment {
         mViewModel.point.observe(this, newPoints -> {
 
             binding.score.setText(Integer.toString(newPoints));
+            int seconds = (30 - Integer.parseInt(leftTime));
             if (newPoints == maxPoints) {
+                if(newPoints==3){
+                    new InsertEasyLevelScore().execute(new EasyLevelScore(seconds));
+                }
+                else {
+                    new InsertHardLevelScore().execute(new HardLevelScore(seconds));
+                }
+
                 sweetAlertDialog.setTitle("Congrats");
                 sweetAlertDialog.setContentText("Finished for " + (30 - Integer.parseInt(leftTime)) + " seconds!");
 
@@ -163,11 +176,9 @@ public class Single_Player extends Fragment {
                 sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        int seconds=(30 - Integer.parseInt(leftTime));
 
-new GetAllcores().execute(new EasyLevelScore(seconds));
-
-//                        getActivity().onBackPressed();
+                        sweetAlertDialog.dismissWithAnimation();
+                        getActivity().onBackPressed();
 
 
                     }
@@ -176,7 +187,7 @@ new GetAllcores().execute(new EasyLevelScore(seconds));
 
 
                 mViewModel.cancelTimer();
-                sweetAlertDialog.show();
+
             }
 
         });
@@ -230,19 +241,35 @@ new GetAllcores().execute(new EasyLevelScore(seconds));
     public int dpToPx(int dp) {
         return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
     }
-private class GetAllcores extends AsyncTask<EasyLevelScore,Void,Void>{
 
-    @Override
-    protected Void doInBackground(EasyLevelScore... easyLevelScores) {
+    private class InsertEasyLevelScore extends AsyncTask<EasyLevelScore, Void, Void> {
+        @Override
+        protected Void doInBackground(EasyLevelScore... easyLevelScores) {
+            easyLevelScoreDao.insertScore(easyLevelScores[0]);
+            return null;
+        }
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            sweetAlertDialog.show();
+            super.onPostExecute(aVoid);
+        }
+    }
 
-        return null;
+    private class InsertHardLevelScore extends AsyncTask<HardLevelScore, Void, Void> {
+
+        @Override
+        protected Void doInBackground(HardLevelScore... hardLevelScores) {
+
+            hardLevelScoreDao.insertScore(hardLevelScores[0]);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            sweetAlertDialog.show();
+            super.onPostExecute(aVoid);
+        }
     }
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        sweetAlertDialog.dismissWithAnimation();
-        Navigation.findNavController(getView()).navigate(R.id.scoreFragment);
-        super.onPostExecute(aVoid);
-    }
-}}
+}
 
 

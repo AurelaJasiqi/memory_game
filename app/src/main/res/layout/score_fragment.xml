@@ -23,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp
-"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:weightSum="6"
             app:layout_constraintEnd_toEndOf="parent"
@@ -88,8 +87,7 @@
                 android:padding="10dp"
                 android:text="Hard Level"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textSize="18sp" />
 
             <View
                 android:layout_width="0dp"
@@ -225,7 +223,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
-            android:id="@+id/textView18"
+            android:id="@+id/hardLevel_11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="92dp"

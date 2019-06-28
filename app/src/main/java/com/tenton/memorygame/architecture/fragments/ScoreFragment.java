@@ -16,6 +16,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.tenton.memorygame.R;
+import com.tenton.memorygame.architecture.database.EasyLevelScore;
+import com.tenton.memorygame.architecture.database.EasyLevelScoreDao;
+import com.tenton.memorygame.architecture.database.HardLevelScore;
+import com.tenton.memorygame.architecture.database.HardLevelScoreDao;
 import com.tenton.memorygame.architecture.database.Score;
 import com.tenton.memorygame.architecture.database.ScoreDao;
 import com.tenton.memorygame.architecture.database.ScoreDatabase;
@@ -33,8 +37,10 @@ public class ScoreFragment extends Fragment {
     private ScoreViewModel mViewModel;
     private ScoreFragmentBinding binding;
     private Application application;
-    private ScoreDao scoreDao;
-    private List<Score> scores=new ArrayList<>();
+    private EasyLevelScoreDao easyLevelScoreDao;
+    private HardLevelScoreDao hardLevelScoreDao;
+    private List<EasyLevelScore> easyLevelScores=new ArrayList<>();
+    private List<HardLevelScore> hardLevelScores=new ArrayList<>();
 
 
     public static ScoreFragment newInstance() {
@@ -47,7 +53,8 @@ public class ScoreFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.score_fragment, container, false);
         binding.setLifecycleOwner(this);
         application=this.getActivity().getApplication();
-        scoreDao= ScoreDatabase.getDatabase(application).scoreDao();
+        easyLevelScoreDao= ScoreDatabase.getDatabase(application).easyLevelScore();
+        hardLevelScoreDao= ScoreDatabase.getDatabase(application).hardLevelScoreDao();
         mViewModel = ViewModelProviders.of(this).get(ScoreViewModel.class);
         binding.setViewmodel(mViewModel);
 
@@ -65,20 +72,25 @@ public class ScoreFragment extends Fragment {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            scores.addAll(scoreDao.fetchTopScores());
+            easyLevelScores.addAll(easyLevelScoreDao.fetchTopScores());
+            hardLevelScores.addAll(hardLevelScoreDao.fetchTopScores());
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if(scores.size()>1){
-                binding.easyLevel1.setText(String.valueOf(scores.get(0).scores)+" seconds");
+            if(easyLevelScores.size()>1 || hardLevelScores.size()>1 ){
+                binding.easyLevel1.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
+                binding.hardLevel11.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
             }
-            if(scores.size()>2){
-                binding.easyLevel2.setText(String.valueOf(scores.get(1).scores)+" seconds");
+            if(easyLevelScores.size()>2 || hardLevelScores.size()>2){
+                binding.easyLevel2.setText(String.valueOf(easyLevelScores.get(1).getScores())+" seconds");
+                binding.hardLevel2.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
             }
-            if(scores.size()>3){
-                binding.easyLevel3.setText(String.valueOf(scores.get(2).scores)+" seconds");
+            if(easyLevelScores.size()>3 || hardLevelScores.size()>3){
+                binding.easyLevel3.setText(String.valueOf(easyLevelScores.get(2).getScores())+" seconds");
+                binding.hardLevel3.setText(String.valueOf(hardLevelScores.get(2).getScores())+" seconds");
+
             }
             super.onPostExecute(aVoid);
         }

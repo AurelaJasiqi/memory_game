@@ -10,8 +10,8 @@ import java.util.List;
 @Dao
 public interface EasyLevelScoreDao {
     @Query("SELECT * FROM easy_level_score_table ORDER BY scores ASC")
-    List<Score> fetchTopScores();
+    List<EasyLevelScore> fetchTopScores();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertScore(Score score);
+    void insertScore(EasyLevelScore easyLevelScore);
 }
