@@ -41,6 +41,7 @@ public class MultiPlayer extends Fragment {
     private String playerOneName;
     private String playerTwoName;
     private String contentText = "";
+    static String extraText="";
     private Integer p1Points = 0;
     private Integer p2Points = 0;
     private SweetAlertDialog dialog;
@@ -138,6 +139,7 @@ public class MultiPlayer extends Fragment {
     public void SweetAlertDialogWarning() {
          dialog = new SweetAlertDialog(getContext(), SweetAlertDialog.CUSTOM_IMAGE_TYPE)
                 .setTitleText(contentText)
+                 .setContentText(extraText)
                  .setCustomImage(drawable)
                 .setConfirmText("Restart Game")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
@@ -154,7 +156,9 @@ public class MultiPlayer extends Fragment {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
+
                         getActivity().onBackPressed();
+                        dialog.dismiss();
                     }
                 });
          dialog.setCancelable(false);
@@ -170,7 +174,8 @@ public class MultiPlayer extends Fragment {
             binding.tvTimer.setText(timeLeft.toString());
         });
         mViewModel.gameOver.observe(this, gameOver -> {
-            contentText = "Game Over, try again harder!";
+            contentText = "Game Over!";
+            extraText="Try again harder";
             drawable=R.drawable.game_over;
             SweetAlertDialogWarning();
         });
@@ -202,15 +207,18 @@ public class MultiPlayer extends Fragment {
         if (p1Points + p2Points == 6){
             drawable=R.drawable.trophy;
             if(p1Points > p2Points){
-                contentText = "Congrats "+playerOneName+" you're the winner!";
+                contentText = "Congrats!";
+                extraText="The winner is:"+playerOneName;
                 SweetAlertDialogWarning();
 
             }else if(p1Points < p2Points){
-                contentText = "Congrats "+playerTwoName+" you're the winner!";
+                contentText = "Congrats!";
+                extraText="The winner is:"+playerTwoName;
                 SweetAlertDialogWarning();
 
             }else if(p1Points == p2Points){
                 contentText = "Try again!";
+                extraText="No winner";
                 SweetAlertDialogWarning();
 
             }else{

@@ -1,6 +1,7 @@
 package com.tenton.memorygame.architecture.fragments;
 
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Application;
@@ -40,7 +41,7 @@ public class ScoreFragment extends Fragment {
     private EasyLevelScoreDao easyLevelScoreDao;
     private HardLevelScoreDao hardLevelScoreDao;
     private List<EasyLevelScore> easyLevelScores=new ArrayList<>();
-    private List<HardLevelScore> hardLevelScores=new ArrayList<>();
+    private List<HardLevelScore> hardLevelScores=new ArrayList<HardLevelScore>();
 
 
     public static ScoreFragment newInstance() {
@@ -67,37 +68,56 @@ public class ScoreFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         new GetScores().execute();
 
+        easyLevelScoreDao.fetchTopScores().observe(this, response -> {
+            easyLevelScores.addAll(response);
+            setEasyScores();
+
+        });
+        hardLevelScoreDao.fetchTopScores().observe(this, response -> {
+            hardLevelScores.addAll(response);
+            setHardScores();
+
+        });
+
     }
     private class GetScores extends AsyncTask<Void,Void,Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
-            easyLevelScores.addAll(easyLevelScoreDao.fetchTopScores());
-            hardLevelScores.addAll(hardLevelScoreDao.fetchTopScores());
+
+
+
+            easyLevelScoreDao.fetchTopScores();
+          hardLevelScoreDao.fetchTopScores();
             return null;
         }
-
         @Override
         protected void onPostExecute(Void aVoid) {
-            if(easyLevelScores.size()>1  ){
-                binding.easyLevel1.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
-            }
-            if(easyLevelScores.size()>2 ){
-                binding.easyLevel2.setText(String.valueOf(easyLevelScores.get(1).getScores())+" seconds");
-            }
-            if(easyLevelScores.size()>3){
-                binding.easyLevel3.setText(String.valueOf(easyLevelScores.get(2).getScores())+" seconds");
-            }
-            if (hardLevelScores.size()>1){
-                binding.hardLevel11.setText(String.valueOf(hardLevelScores.get(0).getScores())+" seconds");
-            }
-            if (hardLevelScores.size()>2){
-                binding.hardLevel2.setText(String.valueOf(hardLevelScores.get(0).getScores())+" seconds");
-            }
-            if (hardLevelScores.size()>3){
-                binding.hardLevel3.setText(String.valueOf(hardLevelScores.get(0).getScores())+" seconds");
-            }
+
             super.onPostExecute(aVoid);
+        }
+    }
+    private void setEasyScores(){
+        if(easyLevelScores.size()>0  ){
+            binding.easyLevel1.setText(String.valueOf(easyLevelScores.get(0).getScores())+" seconds");
+        }
+        if(easyLevelScores.size()>1 ){
+            binding.easyLevel2.setText(String.valueOf(easyLevelScores.get(1).getScores())+" seconds");
+        }
+        if(easyLevelScores.size()>2){
+            binding.easyLevel3.setText(String.valueOf(easyLevelScores.get(2).getScores())+" seconds");
+        }
+
+    }
+    private void setHardScores(){
+        if (hardLevelScores.size()>0){
+            binding.hardLevel11.setText(String.valueOf(hardLevelScores.get(0).getScores())+" seconds");
+        }
+        if (hardLevelScores.size()>1){
+            binding.hardLevel2.setText(String.valueOf(hardLevelScores.get(1).getScores())+" seconds");
+        }
+        if (hardLevelScores.size()>2){
+            binding.hardLevel3.setText(String.valueOf(hardLevelScores.get(2).getScores())+" seconds");
         }
     }
 
