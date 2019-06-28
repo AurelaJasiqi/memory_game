@@ -178,12 +178,12 @@ public class StartGame extends Fragment {
             public void onClick(View v) {
                 if(bluetoothAdapter == null){
                     Toast.makeText(getContext(), "Your device does not support Bluetooth",Toast.LENGTH_SHORT).show();
-//                    Navigation.findNavController(getView()).navigate(StartGameDirections.actionStartGameFragmentToAvalaibleDevices());
-
 
                 }else{
                     if(!bluetoothAdapter.isEnabled()){
                         startActivityForResult(enableBluetooth,requestCodeForEnable);
+                    }else{
+                        Navigation.findNavController(getView()).navigate(StartGameDirections.actionStartGameFragmentToAvalaibleDevices2());
                     }
                 }
 

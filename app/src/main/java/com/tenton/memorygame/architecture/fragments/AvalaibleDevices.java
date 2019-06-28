@@ -46,7 +46,6 @@ public class AvalaibleDevices extends Fragment {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(AvalaibleDevicesViewModel.class);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-
         show();
 
     }

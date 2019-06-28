@@ -16,6 +16,9 @@
     <action
         android:id="@+id/action_start_game_fragment_to_multiPlayer"
         app:destination="@id/multiPlayer" />
+    <action
+        android:id="@+id/action_start_game_fragment_to_avalaibleDevices2"
+        app:destination="@id/avalaibleDevices2" />
 </fragment>
     <fragment
     android:name="com.tenton.memorygame.architecture.fragments.Single_Player"
@@ -67,4 +70,9 @@
         android:name="com.tenton.memorygame.architecture.fragments.ScoreFragment"
         android:label="score_fragment"
         tools:layout="@layout/score_fragment" />
+    <fragment
+        android:id="@+id/avalaibleDevices2"
+        android:name="com.tenton.memorygame.architecture.fragments.AvalaibleDevices"
+        android:label="avalaible_devices_fragment"
+        tools:layout="@layout/avalaible_devices_fragment" />
 </navigation>
