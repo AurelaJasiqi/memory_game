@@ -3,8 +3,10 @@ package com.tenton.memorygame.architecture.fragments;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.Application;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -20,6 +22,10 @@ import android.widget.Toast;
 
 import com.tenton.memorygame.R;
 import com.tenton.memorygame.architecture.adapters.SinglePlayerAdapter;
+import com.tenton.memorygame.architecture.database.EasyLevelScore;
+import com.tenton.memorygame.architecture.database.Score;
+import com.tenton.memorygame.architecture.database.ScoreDao;
+import com.tenton.memorygame.architecture.database.ScoreDatabase;
 import com.tenton.memorygame.architecture.models.ImageResponse;
 import com.tenton.memorygame.architecture.viewmodels.SinglePlayerViewModel;
 import com.tenton.memorygame.architecture.viewmodelsfactory.SinglePlayerViewmodelFactory;
@@ -47,6 +53,9 @@ public class Single_Player extends Fragment {
     SweetAlertDialog sweetAlertDialog;
     private String leftTime;
     private Single_PlayerDirections.ActionSinglePlayerFragmentSelf action;
+    private EasyLevelScore scoreDao;
+    private Application application;
+
 
     public static Single_Player newInstance() {
         return new Single_Player();
@@ -57,6 +66,8 @@ public class Single_Player extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.single__player_fragment, container, false);
         binding.setLifecycleOwner(this);
+        application=this.getActivity().getApplication();
+        scoreDao= ScoreDatabase.getDatabase(application).easyLevelScore();
         return binding.getRoot();
     }
 
@@ -152,8 +163,12 @@ public class Single_Player extends Fragment {
                 sweetAlertDialog.setCancelButton("New Game", new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                        getActivity().onBackPressed();
-                        sweetAlertDialog.dismissWithAnimation();
+                        int seconds=(30 - Integer.parseInt(leftTime));
+
+new GetAllcores().execute(new EasyLevelScore(seconds));
+
+//                        getActivity().onBackPressed();
+
 
                     }
                 });
@@ -215,7 +230,19 @@ public class Single_Player extends Fragment {
     public int dpToPx(int dp) {
         return Math.round(dp * Resources.getSystem().getDisplayMetrics().density);
     }
+private class GetAllcores extends AsyncTask<EasyLevelScore,Void,Void>{
 
+    @Override
+    protected Void doInBackground(EasyLevelScore... easyLevelScores) {
 
-}
+        return null;
+    }
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        sweetAlertDialog.dismissWithAnimation();
+        Navigation.findNavController(getView()).navigate(R.id.scoreFragment);
+        super.onPostExecute(aVoid);
+    }
+}}
+
 
