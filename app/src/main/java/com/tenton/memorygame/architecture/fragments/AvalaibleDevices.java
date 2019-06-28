@@ -56,27 +56,25 @@ public class AvalaibleDevices extends Fragment {
     private static final String APP_NAME = "MemoryGame";
     private static final UUID MYUUID = UUID.fromString("acc5a150-1be4-4353-97d8-3ff2827be654");
 
-
-
-    IntentFilter intentFilter1 = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
-    BroadcastReceiver scanModeReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (action.equals(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED)) {
-                int modeValue = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
-                if (modeValue == BluetoothAdapter.SCAN_MODE_CONNECTABLE) {
-                    Toast.makeText(getContext(), "Device is not discoverable but can receive connection!", Toast.LENGTH_SHORT).show();
-                } else if (modeValue == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-                    Toast.makeText(getContext(), "Device is on discoverable mode!", Toast.LENGTH_SHORT).show();
-                } else if (modeValue == BluetoothAdapter.SCAN_MODE_NONE) {
-                    Toast.makeText(getContext(), "The device is not discoverable and can not receive connection!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
-    };
+//    IntentFilter intentFilter1 = new IntentFilter(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED);
+//    BroadcastReceiver scanModeReceiver = new BroadcastReceiver() {
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            String action = intent.getAction();
+//            if (action.equals(BluetoothAdapter.ACTION_SCAN_MODE_CHANGED)) {
+//                int modeValue = intent.getIntExtra(BluetoothAdapter.EXTRA_SCAN_MODE, BluetoothAdapter.ERROR);
+//                if (modeValue == BluetoothAdapter.SCAN_MODE_CONNECTABLE) {
+//                    Toast.makeText(getContext(), "Device is not discoverable but can receive connection!", Toast.LENGTH_SHORT).show();
+//                } else if (modeValue == BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+//                    Toast.makeText(getContext(), "Device is on discoverable mode!", Toast.LENGTH_SHORT).show();
+//                } else if (modeValue == BluetoothAdapter.SCAN_MODE_NONE) {
+//                    Toast.makeText(getContext(), "The device is not discoverable and can not receive connection!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        }
+//    };
 
     public static AvalaibleDevices newInstance() {
         return new AvalaibleDevices();
@@ -96,7 +94,7 @@ public class AvalaibleDevices extends Fragment {
         mViewModel = ViewModelProviders.of(this).get(AvalaibleDevicesViewModel.class);
         bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         showPairedDevices();
-        showDiscoveredDevices();
+//        showDiscoveredDevices();
         implementListeners();
 
 
@@ -138,45 +136,26 @@ public class AvalaibleDevices extends Fragment {
         });
     }
 
-    public void showDiscoveredDevices() {
-        binding.btnShowDiscoverDevices.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                bluetoothAdapter.startDiscovery();
-
-                IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
-                getActivity().registerReceiver(myReceiver, intentFilter);
-
-                Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-                intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 10);
-                startActivity(intent);
-
-                getActivity().registerReceiver(scanModeReceiver, intentFilter1);
-
-            }
-        });
-    }
-
-    public void implementListeners() {
-//        binding.btnListDevices.setOnClickListener(new View.OnClickListener() {
+//    public void showDiscoveredDevices() {
+//        binding.btnShowDiscoverDevices.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                binding.listViewListDevices.setVisibility(View.VISIBLE);
-//                binding.listDevicesView.setVisibility(View.VISIBLE);
-//                Set<BluetoothDevice> bt = bluetoothAdapter.getBondedDevices();
-//                String[] string = new String[bt.size()];
-//                int index = 0;
-//                if (bt.size() > 0) {
-//                    for (BluetoothDevice device : bt) {
-//                        btArray[index] = device;
-//                        string[0] = device.getName();
-//                        index++;
-//                    }
-//                    ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, string);
-//                    binding.listViewListDevices.setAdapter(arrayAdapter);
-//                }
+//                bluetoothAdapter.startDiscovery();
+//
+//                IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+//                getActivity().registerReceiver(myReceiver, intentFilter);
+//
+//                Intent intent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+//                intent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 10);
+//                startActivity(intent);
+//
+//                getActivity().registerReceiver(scanModeReceiver, intentFilter1);
+//
 //            }
 //        });
+//    }
+
+    public void implementListeners() {
 
         binding.btnListen.setOnClickListener(new View.OnClickListener() {
             @Override
