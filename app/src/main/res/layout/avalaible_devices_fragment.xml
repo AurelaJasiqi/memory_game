@@ -34,38 +34,24 @@
                 android:fontFamily="casual"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Show Paired Devices"
+                android:text="Paired Devices"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/btn_show_discover_devices"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/popup_bg"
-                android:fontFamily="casual"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Be Discoverable"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toEndOf="@+id/btn_show_paireddevices"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginBottom="8dp"
                 android:text="Status"
                 android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_list_devices"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_listen"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_show_discover_devices" />
+                app:layout_constraintStart_toEndOf="@+id/btn_listen"
+                app:layout_constraintTop_toTopOf="@+id/btn_listen" />
 
             <Button
                 android:id="@+id/btn_listen"
@@ -79,39 +65,21 @@
                 android:paddingRight="10dp"
                 android:text="Listen"
                 android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/btn_show_paireddevices"
-                app:layout_constraintTop_toBottomOf="@+id/btn_show_paireddevices" />
-
-            <Button
-                android:id="@+id/btn_list_devices"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@drawable/popup_bg"
-                android:fontFamily="casual"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="List Devices"
-                android:textColor="@color/white"
-                app:layout_constraintEnd_toStartOf="@+id/tv_status"
-                app:layout_constraintStart_toEndOf="@+id/btn_listen"
-                app:layout_constraintTop_toBottomOf="@+id/btn_show_discover_devices" />
+                app:layout_constraintStart_toEndOf="@+id/btn_show_paireddevices"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <LinearLayout
                 android:id="@+id/pairedDevices_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="20dp"
+                android:visibility="gone"
+                android:layout_marginTop="10dp"
                 android:weightSum="6"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_list_devices"
-                android:visibility="gone"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/btn_listen">
 
                 <View
                     android:layout_width="0dp"
