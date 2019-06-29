@@ -95,48 +95,6 @@
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_buttons"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="30dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView">
-
-                    <Button
-                        android:id="@+id/new_game"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginEnd="85dp"
-                        android:background="@drawable/new_game"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <Button
-                        android:id="@+id/pause_game"
-                        android:layout_width="57dp"
-                        android:layout_height="57dp"
-                        android:layout_marginStart="85dp"
-                        android:background="@drawable/pause_game"
-                        android:gravity="center"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/new_game"
-                        app:layout_constraintTop_toTopOf="parent" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <ImageView
-                    android:id="@+id/load_img"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/constraint_buttons" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </FrameLayout>
     </ScrollView>
