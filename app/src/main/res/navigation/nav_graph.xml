@@ -12,16 +12,32 @@
     >
     <action
         android:id="@+id/action_start_game_fragment_to_single_player_fragment"
-        app:destination="@id/single_player_fragment" />
+        app:destination="@id/single_player_fragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
     <action
         android:id="@+id/action_start_game_fragment_to_multiPlayer"
-        app:destination="@id/multiPlayer" />
+        app:destination="@id/multiPlayer"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
     <action
         android:id="@+id/action_start_game_fragment_to_avalaibleDevices2"
-        app:destination="@id/avalaibleDevices2" />
+        app:destination="@id/avalaibleDevices2"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
     <action
         android:id="@+id/action_start_game_fragment_to_scoreFragment"
-        app:destination="@id/scoreFragment" />
+        app:destination="@id/scoreFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right" />
 </fragment>
     <fragment
     android:name="com.tenton.memorygame.architecture.fragments.Single_Player"
@@ -34,7 +50,11 @@
             app:argType="string" />
         <action
             android:id="@+id/action_single_player_fragment_to_start_game_fragment"
-            app:destination="@id/start_game_fragment" />
+            app:destination="@id/start_game_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="animal"
             app:argType="string" />
@@ -50,7 +70,11 @@
         tools:layout="@layout/multi_player_fragment" >
         <action
             android:id="@+id/action_multiPlayer_to_start_game_fragment"
-            app:destination="@id/start_game_fragment" />
+            app:destination="@id/start_game_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <argument
             android:name="animal_multiPlayer"
             app:argType="string" />
