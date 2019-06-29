@@ -74,5 +74,14 @@
         android:id="@+id/avalaibleDevices2"
         android:name="com.tenton.memorygame.architecture.fragments.AvalaibleDevices"
         android:label="avalaible_devices_fragment"
-        tools:layout="@layout/avalaible_devices_fragment" />
+        tools:layout="@layout/avalaible_devices_fragment" >
+        <action
+            android:id="@+id/action_avalaibleDevices2_to_bluetoothGame"
+            app:destination="@id/bluetoothGame" />
+    </fragment>
+    <fragment
+        android:id="@+id/bluetoothGame"
+        android:name="com.tenton.memorygame.architecture.fragments.BluetoothGame"
+        android:label="bluetooth_game_fragment"
+        tools:layout="@layout/bluetooth_game_fragment" />
 </navigation>

@@ -16,6 +16,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
@@ -97,7 +98,9 @@ public class AvalaibleDevices extends Fragment {
 //        showDiscoveredDevices();
         implementListeners();
 
-
+        if(binding.tvStatus.getText().equals("Connected")){
+            Navigation.findNavController(getView()).navigate(AvalaibleDevicesDirections.actionAvalaibleDevices2ToBluetoothGame());
+        }
     }
 
     BroadcastReceiver myReceiver = new BroadcastReceiver() {
@@ -234,7 +237,6 @@ public class AvalaibleDevices extends Fragment {
                     Message message= Message.obtain();
                     message.what = STATE_CONNECTED;
                     handler.sendMessage(message);
-
                 }
             }
         }
@@ -243,6 +245,7 @@ public class AvalaibleDevices extends Fragment {
     private class ClientClass extends Thread{
         public BluetoothDevice device;
         public BluetoothSocket clientSocket;
+
 
         public ClientClass(BluetoothDevice device1){
             device = device1;
@@ -254,7 +257,6 @@ public class AvalaibleDevices extends Fragment {
         }
 
         public void run(){
-
             try {
                 clientSocket.connect();
                 Message message = Message.obtain();
